@@ -201,6 +201,25 @@
   @keyframes fall{to{transform:translateY(105vh) rotate(260deg)}}
   .app{position:relative;z-index:1}
 </style>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ze8uh4d565");
+</script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1122892143970982');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1122892143970982&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
 <div class="snow" id="snow"></div>
@@ -323,6 +342,12 @@ function openModal(b){
   document.body.appendChild(m);
 }
 
+/* ============ RASTREAMENTO (Meta Pixel + Clarity) ============ */
+function track(type,name,params){
+  try{ if(window.fbq) fbq(type,name,params||{}); }catch(e){}
+  try{ if(window.clarity) clarity("event",name); }catch(e){}
+}
+
 /* ============ SOM ============ */
 let ac;
 function audio(){ if(!ac){ try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} } if(ac&&ac.state==="suspended")ac.resume(); return ac;}
@@ -381,7 +406,7 @@ function renderIntro(){
     <button class="btn red pulse" id="startBtn">Começar o quiz →</button>
     <p class="fine">Sem cadastro · Resultado na hora</p>
   </section>`;
-  document.getElementById("startBtn").onclick=()=>{ sfx.start(); go(0); };
+  document.getElementById("startBtn").onclick=()=>{ sfx.start(); track("trackCustom","QuizStart"); go(0); };
 }
 
 function renderQuestion(q){
@@ -444,6 +469,7 @@ function renderLoading(){
 function withUTM(url){ const s=location.search; return s? url+(url.includes("?")?"&":"?")+s.slice(1) : url; }
 
 function renderResult(){
+  track("track","Lead",{content_name:"Quiz Ceia Econômica"});
   const a=state.answers;
   const pessoas=(a.pessoas||"sua família").toLowerCase();
   const prato=(a.prato&&a.prato!=="Outro")?a.prato:"À sua escolha", doce=a.sobremesa||"Pavê";
@@ -490,7 +516,7 @@ function renderResult(){
         <li class="row"><span>🎁 3 cardápios prontos, checklist de compras e guia de porções</span></li>
       </ul>
       <div class="price"><s>De R$ 211,70</s><span class="now">R$ 47,90</span><small>pagamento único</small></div>
-      <a class="btn pulse" href="${withUTM(CHECKOUT_COMPLETO)}" data-snd>Quero o Plano Completo →</a>
+      <a class="btn pulse" href="${withUTM(CHECKOUT_COMPLETO)}" data-snd data-plan="Completo" data-value="47.90">Quero o Plano Completo →</a>
     </div>
 
     <div class="offer">
@@ -498,7 +524,7 @@ function renderResult(){
       <p class="desc">Só o guia principal</p>
       <ul class="base"><li>Guia Ceia Econômica de Natal (37 receitas)</li></ul>
       <div class="price"><span class="now" style="font-size:34px">R$ 19,90</span><small>pagamento único</small></div>
-      <a class="btn red" href="${withUTM(CHECKOUT_ESSENCIAL)}" data-snd>Quero o Plano Essencial</a>
+      <a class="btn red" href="${withUTM(CHECKOUT_ESSENCIAL)}" data-snd data-plan="Essencial" data-value="19.90">Quero o Plano Essencial</a>
     </div>
 
     <div class="guarantee">
@@ -507,7 +533,7 @@ function renderResult(){
     </div>
     <p class="fine">Acesso imediato pelo celular, computador ou para imprimir.</p>
   </section>`;
-  main.querySelectorAll("[data-snd]").forEach(a=>a.addEventListener("click",()=>sfx.click()));
+  main.querySelectorAll("[data-snd]").forEach(a=>a.addEventListener("click",()=>{ sfx.click(); track("track","InitiateCheckout",{content_name:"Plano "+a.dataset.plan,value:+a.dataset.value,currency:"BRL"}); }));
   main.querySelectorAll("[data-bonus]").forEach(b=>b.onclick=()=>{sfx.click();openModal(BONUS[+b.dataset.bonus]);});
   startCountdown();
 }
