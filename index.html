@@ -214,9 +214,14 @@ li.is-done .diag__ic svg{display:block}
 .sec--claro{background:transparent}
 .sec--branco{background:#fff}
 .sec--escuro{background:var(--wine);color:#fff}
-.sec--sem{background:#fff1f0}
-.sec--com{background:#effbf2}
+.sec--ouro{background:#ffefc7}
+.sec--rosa{background:#fcdfe3}
+.sec--pessego{background:#fde3cf}
+.sec--sem{background:linear-gradient(180deg,#c3121e,#8f0d16);color:#fff}
+.sec--com{background:linear-gradient(180deg,#169445,#0e6b31);color:#fff}
 .sec--dor{background:#fff}
+.sec--verde-esc{background:#0f3d26;color:#fff}
+.sec{box-shadow:inset 0 10px 14px -12px rgba(0,0,0,.18)}
 .pv__bar{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;margin-bottom:14px}
 .logo{text-align:center;font-weight:800;line-height:1.05;font-size:18px;color:var(--wine)}
 .logo span{display:block;color:var(--red);font-size:22px}
@@ -245,6 +250,9 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .card--escuro{background:var(--wine);color:#fff}
 .card--verde{background:#eaf8ee}
 .tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none}
+.tile img{width:34px;height:34px}
+.ic3d{width:28px;height:28px;flex:none}
+.pv-carrossel__tag{display:flex!important;align-items:center;gap:5px;width:max-content}
 .tile--red{background:var(--red-50)}.tile--verde{background:var(--green)}.tile--ouro{background:var(--gold-50)}
 .chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
 .chips li{background:#fdf1ea;border:1px solid var(--line);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600}
@@ -258,41 +266,66 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .telas__leg{text-align:center;font-weight:700;margin-top:14px;font-size:14.5px}
 .telas__leg i{color:#ffd56b;font-style:normal;margin:0 4px}
 .ad__rotulos{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
-.ad__selo{display:inline-flex;justify-self:center;align-items:center;gap:6px;color:#fff;font-weight:800;padding:6px 14px;border-radius:99px;font-size:15px;margin-bottom:10px}
-.ad__selo--antes{background:var(--red)}.ad__selo--depois{background:var(--green)}
+.ad__selo{display:inline-flex;justify-self:center;align-items:center;gap:6px;color:#fff;font-weight:800;padding:7px 12px 7px 16px;border-radius:12px;font-size:17px;margin-bottom:12px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.ad__selo img{width:22px;height:22px;background:#fff;border-radius:50%}
+.ad__selo--antes{background:var(--red);transform:rotate(-3deg)}.ad__selo--depois{background:var(--green);transform:rotate(2deg)}
 .ad__par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.wa{background:#efe7dd;border-radius:18px;overflow:hidden;border:5px solid #1c1210;font-size:10.5px}
-.wa__head{background:#075e54;color:#fff;padding:8px 9px;display:flex;gap:7px;align-items:center}
-.wa__av{width:24px;height:24px;border-radius:50%;background:#cfd8dc;display:grid;place-items:center;font-size:13px;flex:none}
-.wa__head b{display:block;font-size:11px;line-height:1.1}
-.wa__head small{font-size:8.5px;opacity:.85}
-.wa__body{padding:8px 7px;display:flex;flex-direction:column;gap:5px;min-height:290px}
-.wa__dia{align-self:center;background:#e1f2fb;color:#4b6470;border-radius:6px;padding:2px 7px;font-size:8.5px}
-.msg{max-width:88%;padding:5px 7px 13px;border-radius:8px;position:relative;line-height:1.3;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.iph{background:#111;border-radius:30px;padding:5px;box-shadow:0 16px 30px -12px rgba(0,0,0,.45),inset 0 0 0 2px #333}
+.iph__scr{border-radius:26px;overflow:hidden;background:#efeae2;display:flex;flex-direction:column;height:392px}
+.iph__status{position:relative;display:flex;justify-content:space-between;align-items:center;padding:7px 14px 3px;background:#f7f7f7;font-size:10px}
+.iph__island{position:absolute;left:50%;top:5px;transform:translateX(-50%);width:54px;height:15px;background:#000;border-radius:10px}
+.iph__sig{display:flex;align-items:flex-end;gap:1px}
+.iph__sig i{display:block;width:2.5px;background:#111;border-radius:1px}
+.iph__sig i:nth-child(1){height:3px}.iph__sig i:nth-child(2){height:5px}.iph__sig i:nth-child(3){height:7px}.iph__sig i:nth-child(4){height:9px}
+.iph__sig em{display:block;width:16px;height:8px;border:1.5px solid #111;border-radius:3px;margin-left:4px;background:linear-gradient(90deg,#111 75%,transparent 75%);background-clip:content-box;padding:1px}
+.wa__head{display:flex;align-items:center;gap:5px;background:#f7f7f7;padding:5px 7px 6px;border-bottom:1px solid #ddd}
+.wa__voltar{color:#007aff;font-size:11px;font-weight:600;white-space:nowrap}
+.wa__av{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#fff 0 26%,transparent 27%),radial-gradient(circle at 50% 105%,#fff 0 46%,transparent 47%),#c9ccd1;flex:none}
+.wa__quem{flex:1;min-width:0;line-height:1.1}
+.wa__quem b{display:block;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa__quem small{display:block;font-size:7.5px;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa__ics{display:flex;gap:6px}
+.wa__ics svg,.wa__in svg{width:13px;height:13px;fill:none;stroke:#007aff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wa__body{flex:1;padding:7px 6px;display:flex;flex-direction:column;gap:3px;overflow:hidden;
+  background-color:#efeae2;background-image:radial-gradient(circle at 20% 30%,rgba(0,0,0,.035) 0 2px,transparent 3px),radial-gradient(circle at 70% 70%,rgba(0,0,0,.035) 0 3px,transparent 4px);background-size:28px 28px,36px 36px}
+.wa__dia{align-self:center;background:#fff;color:#555;border-radius:6px;padding:2px 8px;font-size:8px;margin:3px 0;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.msg{max-width:90%;padding:4px 6px 12px;border-radius:9px;position:relative;line-height:1.28;font-size:9.5px;box-shadow:0 1px 1px rgba(0,0,0,.1)}
 .msg--eu{align-self:flex-end;background:#d9fdd3}
 .msg--ela{align-self:flex-start;background:#fff}
-.msg small{position:absolute;right:6px;bottom:2px;font-size:7.5px;color:#7c8b84}
-.msg__n{display:block;font-weight:700;font-size:8.5px;margin-bottom:1px}
-.ad__leg{font-weight:700;font-size:14px;margin-top:10px}
+.msg--rabo.msg--eu{border-top-right-radius:2px}
+.msg--rabo.msg--ela{border-top-left-radius:2px}
+.msg small{position:absolute;right:5px;bottom:2px;font-size:7px;color:#7c8b84;display:flex;align-items:center;gap:2px}
+.wa-tick{width:11px;height:8px;fill:none;stroke:#34b7f1;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.wa__in{display:flex;align-items:center;gap:6px;background:#f7f7f7;padding:6px 7px 10px;border-top:1px solid #ddd}
+.wa__campo{flex:1;height:17px;border-radius:9px;background:#fff;border:1px solid #ddd;display:flex;justify-content:flex-end;align-items:center;padding-right:3px}
+.wa__campo svg{width:10px;height:10px}
+.wa-card{display:block;background:#fff;border-radius:6px;overflow:hidden;margin:-1px -3px 3px;border:1px solid #cfe9c9}
+.wa-card__top{display:block;background:var(--red);color:#fff;font-weight:800;font-size:7.5px;padding:3px 5px}
+.wa-card__t{display:block;font-weight:800;color:var(--green);font-size:7.5px;padding:3px 5px 1px}
+.wa-card__r{display:flex;align-items:center;gap:4px;font-size:7.5px;font-weight:600;padding:2px 5px}
+.wa-card__r img{width:14px;height:14px;border-radius:3px;object-fit:cover}
+.ad__leg{font-weight:800;font-size:15px;margin-top:12px;line-height:1.25}
+
 .ad__leg--antes{color:var(--red)}.ad__leg--depois{color:var(--green)}
 .ad__faixa{text-align:center;font-weight:800;font-size:18px;margin-top:16px;line-height:1.3}
 .ad__faixa span{color:var(--green)}
 .tit{font-size:23px;line-height:1.22;font-weight:800;text-align:center;letter-spacing:-.3px;margin-bottom:14px}
-.sec--sem .tit{color:var(--red)}.sec--com .tit{color:var(--green)}
+.sec--sem .tit,.sec--com .tit{color:#fff}
+.sec--sem .lista li,.sec--com .lista li{color:var(--ink);box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.sec--com .foto .slot,.sec--sem .foto .slot{box-shadow:0 10px 24px rgba(0,0,0,.3)}
 .apoio{text-align:center;font-size:16px;color:var(--muted);font-weight:600;margin-bottom:6px}
 .rot{font-weight:800;margin:14px 0 8px;font-size:15.5px}
 .rot--solta{text-align:center}
 .lista{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
 .lista li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 2px 8px rgba(92,26,31,.07)}
 .lista--solta li{background:transparent;box-shadow:none;padding:2px 0}
-.lista li::before{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;margin-top:1px}
-.lista--x li::before,.lista--xq li::before{content:"✕";background:var(--red)}
-.lista--ok li::before{content:"✓";background:var(--green)}
-.lista--seta li::before{content:"➜";background:var(--gold);color:#4a2c00}
-.lista--seta2 li::before{content:"➜";background:var(--green)}
+.lista li::before{content:"";flex:none;width:28px;height:28px;background:center/contain no-repeat;margin-top:-2px}
+.lista--x li::before,.lista--xq li::before{background-image:url(img/ui/x.webp)}
+.lista--ok li::before,.lista--seta2 li::before{background-image:url(img/ui/check.webp)}
+.lista--seta li::before{background-image:url(img/ui/mao.webp)}
 .lista--dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .lista--dupla li{flex-direction:column;gap:6px;background:#fff8f3;border-radius:12px;padding:10px;font-size:14px;font-weight:600}
-.lista--dupla li::before{content:"✓";background:var(--green)}
+.lista--dupla li::before{background-image:url(img/ui/check.webp)}
 .foto{margin-top:6px}
 .foto .slot{aspect-ratio:16/9;border-radius:18px}
 .foto__selo{display:table;margin:-16px auto 0;position:relative;z-index:3;background:var(--red);color:#fff;font-weight:800;font-size:13px;padding:6px 14px;border-radius:99px}
@@ -465,7 +498,7 @@ const TEMPO = {
 /* =========================================================
    ÍCONES / BLOCOS REUTILIZADOS
    ========================================================= */
-const okIc = bad => `<span class="ok${bad ? " ok--bad" : ""}"><svg viewBox="0 0 24 24"><path d="${bad ? "M7 7l10 10M17 7 7 17" : "m6 12.5 4 4 8-9"}"/></svg></span>`;
+const okIc = bad => `<img class="ic3d" src="img/ui/${bad ? "x" : "check"}.webp" alt="" width="28" height="28">`;
 const TOTAL_Q = 8;
 const topBar = n => `
   <header class="q__top">
@@ -605,7 +638,7 @@ const STEPS = [
 
   /* 2 · MÉTODO ATUAL */
   question({ id: "cardapio", title: "Como você decide o cardápio da ceia hoje? 📋",
-    options: [{ emoji: "🤦‍♀️", label: "Vou decidindo na hora, no mercado" }, { emoji: "📱", label: "Procuro receitas na internet" }, { emoji: "📝", label: "Faço sempre as mesmas receitas" }, { emoji: "🫤", label: "Fico perdida, sem saber o que fazer" }] }),
+    options: [{ emoji: "🤦‍♀️", label: "Vou decidindo na hora, no mercado" }, { emoji: "📱", label: "Procuro receitas na internet" }, { emoji: "📝", label: "Faço sempre as mesmas receitas" }, { emoji: "😨", label: "Fico perdida, sem saber o que fazer" }] }),
 
   /* 3 · BASE DA COMPRA */
   question({ id: "lista", title: "Na hora de fazer as compras da ceia, como você monta a lista?",
@@ -715,7 +748,7 @@ const STEPS = [
             <p class="checks__title">O que encontramos:</p>
             <ul role="list">${achados.map(f => `<li><span class="finds__ic">⚠️</span><span>${f}</span></li>`).join("")}</ul>
           </div>
-          <div class="note note--good"><b>A boa notícia</b><p>Tudo isso se resolve começando pelo que você já tem: o app encontra as receitas de Natal que dá pra fazer com os ingredientes da sua despensa e da sua geladeira, com o passo a passo pra preparar no dia 24.</p></div>
+          <div class="note note--good"><b>A boa notícia</b><p>Tudo isso se resolve começando pelo que você já tem. Em vez de procurar receitas aleatórias na internet e acabar gastando mais do que devia, você começa as receitas pelo que você já tem na sua geladeira.</p></div>
           <button class="btn btn--pulse" type="button" data-next>Ver como resolver</button>
         </div>
       </section>`;
@@ -724,7 +757,7 @@ const STEPS = [
       const run = el.querySelector("[data-run]"), resEl = el.querySelector("[data-res]");
       if (state.answers.__diagVisto) { run.hidden = true; resEl.hidden = false; resEl.classList.add("is-in"); return; }
       const ring = el.querySelector("[data-ring]"), pct = el.querySelector("[data-pct]"), items = [...el.querySelectorAll(".diag__steps li")];
-      const TOTAL = 3100, per = TOTAL / items.length; let raf, t0, last = -1, done = false;
+      const TOTAL = 1500, per = TOTAL / items.length; let raf, t0, last = -1, done = false;
       const tick = now => {
         if (!t0) t0 = now;
         const p = Math.min(1, (now - t0) / TOTAL), shown = Math.round(p * 100);
@@ -787,7 +820,22 @@ function salesPage() {
   const foto = (arquivo, desc, selo = "") => `<figure class="foto">${slot(arquivo, "16 / 9", desc)}${selo ? `<figcaption class="foto__selo">${selo}</figcaption>` : ""}</figure>`;
   const selo = `<p class="zap-selo"><span class="zap-selo__ic">⚡</span>Acesso na hora · direto no seu celular</p>`;
   const logo = `<div class="logo">Ceia<span>Econômica</span><small>de Natal</small></div>`;
-  const wa = (status, msgs) => `<div class="wa"><div class="wa__head"><span class="wa__av">👨‍👩‍👧</span><span><b>Família 🎄</b><small>${status}</small></span></div><div class="wa__body">${msgs.map(m => m.dia ? `<span class="wa__dia">${m.dia}</span>` : `<p class="msg msg--${m.de}">${m.nome ? `<span class="msg__n" style="color:${m.cor}">${m.nome}</span>` : ""}${m.txt}<small>${m.hora}</small></p>`).join("")}</div></div>`;
+  const IC = {
+    video:'<svg viewBox="0 0 24 24"><rect x="2" y="6" width="13" height="12" rx="3"/><path d="M15 10l6-3.5v11L15 14z"/></svg>',
+    fone:'<svg viewBox="0 0 24 24"><path d="M6.6 3.5l2.6 3.2c.4.5.4 1.2 0 1.7L7.9 10a12 12 0 0 0 6.1 6.1l1.6-1.3c.5-.4 1.2-.4 1.7 0l3.2 2.6c.5.4.6 1.2.1 1.7l-1.7 1.9c-.6.6-1.5.9-2.4.6C9.9 19.6 4.4 14.1 2.4 7.5c-.3-.9 0-1.8.6-2.4l1.9-1.7c.5-.5 1.3-.4 1.7.1z"/></svg>',
+    mais:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+    stk:'<svg viewBox="0 0 24 24"><path d="M14 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h8l7-7V6a3 3 0 0 0-3-3z"/><path d="M14 21v-4a3 3 0 0 1 3-3h4"/></svg>',
+    cam:'<svg viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    mic:'<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>',
+    tick:'<svg viewBox="0 0 18 12" class="wa-tick"><path d="M1 6.5l3 3L10 3M7 9.5l1 0L15 3"/></svg>',
+  };
+  const wa = (nome, status, msgs) => `<div class="iph"><div class="iph__scr">
+    <div class="iph__status"><b>9:41</b><span class="iph__island"></span><span class="iph__sig"><i></i><i></i><i></i><i></i> <em></em></span></div>
+    <div class="wa__head"><span class="wa__voltar">‹ 12</span><span class="wa__av"></span><span class="wa__quem"><b>${nome}</b><small>${status}</small></span><span class="wa__ics">${IC.video}${IC.fone}</span></div>
+    <div class="wa__body">${msgs.map(m => m.dia ? `<span class="wa__dia">${m.dia}</span>` : `<div class="msg msg--${m.de}${m.rabo ? " msg--rabo" : ""}">${m.card || ""}${m.txt ? `<span>${m.txt}</span>` : ""}<small>${m.hora}${m.de === "eu" ? IC.tick : ""}</small></div>`).join("")}</div>
+    <div class="wa__in">${IC.mais}<span class="wa__campo">${IC.stk}</span>${IC.cam}${IC.mic}</div>
+  </div></div>`;
+  const cardApp = `<span class="wa-card"><span class="wa-card__top">🎄 Ceia Econômica de Natal</span><span class="wa-card__t">Receitas com o que você tem</span>${[["chester.webp","Frango assado de Natal"],["rabanada.webp","Rabanada tradicional"],["pave.webp","Pavê de Natal"]].map(([f,t])=>`<span class="wa-card__r"><img src="img/${f}" alt="">${t}</span>`).join("")}</span>`;
 
   return `
   <section class="pv">
@@ -811,19 +859,19 @@ function salesPage() {
     </div>
 
     <!-- 2 · 3 CARDS: benefícios + 1ª quebra de objeção -->
-    <div class="sec sec--branco" style="padding-top:44px">
+    <div class="sec sec--ouro" style="padding-top:44px">
       <div class="card">
-        <div class="card__head"><span class="tile tile--red">🧺</span><h3>Receitas com o que você já tem</h3></div>
+        <div class="card__head"><span class="tile tile--red"><img src="img/ui/bolo.webp" alt=""></span><h3>Receitas com o que você já tem</h3></div>
         <p>Você só precisa colocar no app os ingredientes que estão na sua despensa e na sua geladeira.</p>
         <p>Nada de comprar a ceia inteira do zero. Enquanto os outros enchem o carrinho, você já sabe o que dá pra fazer com o que tem.</p>
       </div>
       <div class="card card--escuro">
-        <div class="card__head"><span class="tile tile--verde">📋</span><h3>Passo a passo completo</h3></div>
+        <div class="card__head"><span class="tile tile--verde"><img src="img/ui/cozinheira.webp" alt=""></span><h3>Passo a passo completo</h3></div>
         <p>Cada receita vem com todos os ingredientes e o modo de preparo, do começo ao fim.</p>
         <p>Mesmo quem não tem prática na cozinha consegue fazer e acertar no dia 24.</p>
       </div>
       <div class="card">
-        <div class="card__head"><span class="tile tile--ouro">🎄</span><h3>A ceia inteira em um lugar só</h3></div>
+        <div class="card__head"><span class="tile tile--ouro"><img src="img/ui/arvore.webp" alt=""></span><h3>A ceia inteira em um lugar só</h3></div>
         <ul class="chips" role="list">${["Pratos principais", "Aves", "Carnes", "Bacalhau", "Arroz natalino", "Farofas", "Saladas", "Salpicão", "Sobremesas", "Rabanada", "Pavê"].map(t => `<li>${t}</li>`).join("")}<li class="chips__mais">e muito mais</li></ul>
         <p>Tudo pensado pra mesa de Natal, com o que você já tem em casa.</p>
       </div>
@@ -842,26 +890,27 @@ function salesPage() {
     </div>
 
     <!-- 4 · ANTES x DEPOIS no WhatsApp: prova de resultado -->
-    <div class="sec sec--claro">
-      <div class="ad__rotulos"><p class="ad__selo ad__selo--antes">ANTES ✕</p><p class="ad__selo ad__selo--depois">DEPOIS ✓</p></div>
+    <div class="sec sec--rosa">
+      <div class="ad__rotulos"><p class="ad__selo ad__selo--antes">ANTES <img src="img/ui/x.webp" alt=""></p><p class="ad__selo ad__selo--depois">DEPOIS <img src="img/ui/check.webp" alt=""></p></div>
       <div class="ad__par">
-        ${wa("Ana, Bia, Carlos, você", [
-          { dia: "22 de dezembro" },
-          { de: "ela", nome: "Bia", cor: "#c2185b", txt: "Mãe, o que vai ter na ceia? 😋", hora: "19:02" },
-          { de: "eu", txt: "Ainda não sei 😩 vou no mercado amanhã ver", hora: "21:40" },
-          { dia: "23 de dezembro" },
-          { de: "eu", txt: "Gastei uma fortuna e ainda falta coisa…", hora: "18:15" },
-          { de: "eu", txt: "E a geladeira tá cheia, mas não sei o que fazer com nada 😓", hora: "18:16" },
+        ${wa("Bia 💕", "visto por último há 2 dias", [
+          { dia: "Ontem" },
+          { de: "ela", rabo: true, txt: "Mãe, o que vai ter na ceia esse ano? 😋", hora: "19:02" },
+          { de: "eu", rabo: true, txt: "ainda nao sei filha 😩 vou no mercado amanha ver", hora: "23:41" },
+          { dia: "Hoje" },
+          { de: "eu", rabo: true, txt: "gastei uma fortuna no mercado e ainda falta coisa", hora: "18:15" },
+          { de: "eu", txt: "e a geladeira cheia sem saber o que fazer 😓", hora: "18:16" },
+          { de: "ela", rabo: true, txt: "Ih mãe… 😕", hora: "18:30" },
         ])}
-        ${wa("Ana, Bia, Carlos, você", [
-          { dia: "24 de dezembro" },
-          { de: "eu", txt: "Gente, a ceia tá pronta! 🎄 Fiz quase tudo com o que já tinha em casa", hora: "20:30" },
-          { de: "ela", nome: "Bia", cor: "#c2185b", txt: "Mãe, que mesa linda 😍", hora: "20:31" },
-          { de: "ela", nome: "Carlos", cor: "#1565c0", txt: "Manda a receita da rabanada! 🤤", hora: "20:33" },
-          { de: "eu", txt: "E sobrou dinheiro pros presentes 🎁", hora: "20:34" },
+        ${wa("Bia 💕", "online", [
+          { dia: "Hoje" },
+          { de: "eu", rabo: true, card: cardApp, hora: "14:20" },
+          { de: "eu", txt: "Filha, olha o que vou fazer! Tudo com o que já tinha em casa 🎄", hora: "14:20" },
+          { de: "ela", rabo: true, txt: "Que delícia, mãe 😍", hora: "14:21" },
+          { de: "ela", txt: "E ainda vai sobrar pros presentes! 🎁", hora: "14:21" },
         ])}
       </div>
-      <div class="ad__rotulos"><p class="ad__leg ad__leg--antes">Gastou e ainda se estressou. 😔</p><p class="ad__leg ad__leg--depois">Ceia farta gastando pouco. 🤝</p></div>
+      <div class="ad__rotulos"><p class="ad__leg ad__leg--antes">Gastou e se estressou. 😔</p><p class="ad__leg ad__leg--depois">Ceia resolvida com o que tinha. 🤝</p></div>
       <p class="ad__faixa">A diferença entre estourar o orçamento e <span>fazer uma ceia farta</span></p>
     </div>
 
@@ -892,7 +941,7 @@ function salesPage() {
     </div>
 
     <!-- 10 · SOLUÇÃO: conheça o produto + 3 passos -->
-    <div class="sec sec--claro">
+    <div class="sec sec--ouro">
       <div class="card">
         <p class="apoio card__centro">Conheça o</p>
         <div class="card__marca">${logo}</div>
@@ -926,11 +975,11 @@ function salesPage() {
     </div>
 
     <!-- 13 · VEJA COMO USAM (carrossel) -->
-    <div class="sec sec--claro">
+    <div class="sec sec--pessego">
       <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
       <div class="pv-carrossel" data-carrossel>
         <div class="pv-carrossel__trilho">
-          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag">💡 Exemplo de uso</span></figure>`).join("")}
+          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="18" height="18"> Exemplo de uso</span></figure>`).join("")}
         </div>
         <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
         <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
@@ -967,7 +1016,7 @@ function salesPage() {
     </div>
 
     <!-- 17 · GARANTIA -->
-    <div class="sec sec--escuro sec--garantia">
+    <div class="sec sec--verde-esc sec--garantia">
       <h2 class="tit">Garantia de ${CONFIG.garantiaDias} dias</h2>
       <div class="pv-selo"><img src="img/selo-garantia.webp" alt="Selo: garantia de 7 dias" width="420" height="420" loading="lazy"></div>
       <p class="rot">Funciona assim:</p>
