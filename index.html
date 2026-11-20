@@ -164,22 +164,33 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rec__t{font-size:12px;font-weight:800;margin-bottom:5px}
 .phone--sm .rec__t{font-size:7.5px;margin-bottom:3px}
 
-.cel{width:calc(var(--w) + 18px);margin:0 auto;padding:9px;border-radius:calc(var(--w) * .16);background:#141414;position:relative;
-  box-shadow:0 24px 40px -18px rgba(60,15,15,.55),inset 0 0 0 2px #3a3a3a}
-.cel__tela{position:relative;width:var(--w);aspect-ratio:390/844;border-radius:calc(var(--w) * .12);overflow:hidden;background:#fffaf6}
-.cel__tela img{display:block;width:100%;height:100%;object-fit:cover}
-.cel__tela iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(var(--esc));transform-origin:0 0;pointer-events:none}
-.cel__ao-vivo{position:absolute;top:-11px;right:-6px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
-.how .cel{flex:none;padding:5px;border-radius:18px}
-.how .cel__tela{border-radius:13px}
+.cel{--b:calc(var(--w) * .045);width:calc(var(--w) + var(--b) * 2);margin:0 auto;padding:var(--b);border-radius:calc(var(--w) * .17);position:relative;
+  background:linear-gradient(145deg,#3a3a3a,#0d0d0d 40%,#1d1d1d);box-shadow:0 30px 50px -22px rgba(40,10,10,.6),0 0 0 1.5px #555 inset,0 0 0 4px #0b0b0b inset}
+.cel::before,.cel::after{content:"";position:absolute;width:3px;border-radius:3px;background:#2a2a2a}
+.cel::before{left:-2px;top:22%;height:9%}
+.cel::after{right:-2px;top:26%;height:14%}
+.cel__tela{position:relative;width:var(--w);border-radius:calc(var(--w) * .13);overflow:hidden;background:#fffaf6}
+.cel__status{position:relative;height:calc(var(--w) * .085);display:flex;justify-content:space-between;align-items:center;padding:0 calc(var(--w) * .08);
+  font-size:calc(var(--w) * .036);font-weight:700;color:#111;background:#fdf6ee}
+.cel__ilha{position:absolute;left:50%;top:calc(var(--w) * .018);transform:translateX(-50%);width:28%;height:calc(var(--w) * .058);background:#000;border-radius:99px}
+.cel__sinal{display:flex;gap:2px;align-items:flex-end}
+.cel__sinal i{width:calc(var(--w) * .009);background:#111;border-radius:1px}
+.cel__sinal i:nth-child(1){height:calc(var(--w) * .012)}.cel__sinal i:nth-child(2){height:calc(var(--w) * .018)}.cel__sinal i:nth-child(3){height:calc(var(--w) * .024)}
+.cel__sinal b{width:calc(var(--w) * .055);height:calc(var(--w) * .026);border:1.5px solid #111;border-radius:3px;margin-left:3px;position:relative}
+.cel__sinal b::after{content:"";position:absolute;inset:1px 25% 1px 1px;background:#111;border-radius:1px}
+.cel__vista{position:relative;width:100%;aspect-ratio:390/844;overflow:hidden}
+.cel__vista img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.cel__vista iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(var(--esc));transform-origin:0 0;pointer-events:none}
+.cel__ao-vivo{position:absolute;top:-11px;right:-6px;z-index:3;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
 /* ---------- Como usar ---------- */
-.how{display:flex;flex-direction:column;gap:12px;margin-top:16px}
-.how__step{display:flex;gap:12px;align-items:center;background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--shadow);border-top:5px solid var(--c)}
-.how__n{width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;display:grid;place-items:center;flex:none;align-self:flex-start}
+.how{display:flex;flex-direction:column;gap:22px;margin-top:16px}
+.how__step{background:#fff;border-radius:24px;padding:18px 16px 26px;box-shadow:var(--shadow);border-top:6px solid var(--c)}
+.how__cab{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.how__n{width:36px;height:36px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;font-size:17px;display:grid;place-items:center;flex:none}
 .how__body{flex:1}
-.how__eyebrow{font-size:11px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.5px}
-.how__body h3{font-size:16.5px;line-height:1.2;margin:2px 0 4px}
-.how__body p{font-size:13.5px;color:var(--muted)}
+.how__eyebrow{font-size:11.5px;font-weight:800;color:var(--c);text-transform:uppercase;letter-spacing:.6px}
+.how__body h3{font-size:19px;line-height:1.2;margin:2px 0 4px}
+.how__body p{font-size:14.5px;color:var(--muted)}
 
 /* ---------- Diagnóstico ---------- */
 .diag{text-align:center;padding-top:30px}
@@ -265,12 +276,15 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
 .chips li{background:#fdf1ea;border:1px solid var(--line);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600}
 .chips__mais{background:var(--red)!important;color:#fff;border-color:var(--red)!important}
-.telas__fones{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;position:relative;padding-top:24px}
-.telas__item{position:relative}
-.telas__item .slot{aspect-ratio:9/19.5;border-radius:16px;border:4px solid #1c1210;background-color:#fff}
-.telas__pronto{position:absolute;top:-24px;right:0;color:#ffd56b;font-weight:800;font-size:14px}
-.telas__seta{position:absolute;top:46%;z-index:4;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
-.telas__seta--1{left:calc(33.3% - 26px)}.telas__seta--2{left:calc(66.6% - 26px)}
+.telas{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.telas::-webkit-scrollbar{display:none}
+.telas__item{flex:0 0 auto;scroll-snap-align:center;text-align:center}
+.telas__item figcaption{color:#fff;font-size:14px;margin-bottom:12px;line-height:1.3;max-width:254px}
+.telas__item figcaption b{display:block;color:#ffd56b;font-size:13px;text-transform:uppercase;letter-spacing:.6px}
+.telas__pontos{display:flex;justify-content:center;gap:6px}
+.telas__pontos i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);transition:all .2s}
+.telas__pontos i.on{background:#ffd56b;width:22px;border-radius:99px}
+.telas__dica{text-align:center;font-size:13px;opacity:.8;margin-top:8px}
 .telas__leg{text-align:center;font-weight:700;margin-top:14px;font-size:14.5px}
 .telas__leg i{color:#ffd56b;font-style:normal;margin:0 4px}
 .ad__rotulos{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
@@ -330,7 +344,7 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .lista li::before{content:"";flex:none;width:36px;height:36px;background:center/contain no-repeat;margin:-6px -2px -6px -4px}
 .lista--x li::before,.lista--xq li::before{background-image:url(img/ui/x.webp)}
 .lista--ok li::before,.lista--seta2 li::before{background-image:url(img/ui/check.webp)}
-.lista--seta li::before{background-image:url(img/ui/mao-direita.webp)}
+.lista--seta li::before{content:"➜";width:24px;height:24px;margin:1px 0 0;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;background:var(--gold);color:#4a2c00}
 .lista--dupla{display:flex;flex-direction:column;gap:10px}
 .lista--dupla li{align-items:center;gap:12px;background:transparent;padding:0;font-size:15.5px;font-weight:600}
 .lista--dupla li::before{width:32px;height:32px;margin:0;border-radius:9px;background:var(--red-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b3141f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 12.5l4 4 9-9'/%3E%3Cpath d='M11.5 16.5l9-9'/%3E%3C/svg%3E") center/20px no-repeat}
@@ -593,16 +607,17 @@ function mountDemo(root, passo) {
    APP: DEMONSTRAÇÃO AO VIVO E PRINTS EM FORMATO DE CELULAR
    ========================================================= */
 /* largura = largura da tela do celular desenhado (px). A demo roda em 390×844 e é reduzida por CSS. */
+const celTopo = `<div class="cel__status"><span>9:41</span><span class="cel__ilha"></span><span class="cel__sinal"><i></i><i></i><i></i><b></b></span></div>`;
 function appDemo(largura, extra = "") {
   const esc = (largura / 390).toFixed(4);
   const url = `${CONFIG.appDemoUrl}${CONFIG.appDemoUrl.includes("?") ? "&" : "?"}demo=1&moldura=0&auto=0${extra}`;
   return `<div class="cel cel--demo" style="--w:${largura}px;--esc:${esc}">
-    <div class="cel__tela"><iframe data-src="${url}" title="Demonstração do aplicativo Ceia Econômica de Natal" loading="lazy" tabindex="-1" aria-hidden="false"></iframe></div>
+    <div class="cel__tela">${celTopo}<div class="cel__vista"><iframe data-src="${url}" title="Demonstração do aplicativo Ceia Econômica de Natal" loading="lazy" tabindex="-1"></iframe></div></div>
     <span class="cel__ao-vivo">● Ao vivo</span>
   </div>`;
 }
 function appPrint(arquivo, largura, alt) {
-  return `<div class="cel" style="--w:${largura}px"><div class="cel__tela"><img src="img/${arquivo}" alt="${alt}" loading="lazy" decoding="async"></div></div>`;
+  return `<div class="cel" style="--w:${largura}px"><div class="cel__tela">${celTopo}<div class="cel__vista"><img src="img/${arquivo}" alt="${alt}" loading="lazy" decoding="async"></div></div></div>`;
 }
 /* só carrega e só roda a demo enquanto ela está visível na tela */
 const demoObs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
@@ -843,9 +858,9 @@ const STEPS = [
             ["Faça a receita no dia 24", "Cada receita vem com todos os ingredientes e o passo a passo.", "c-green"],
           ].map(([t, d, c], i) => `
             <article class="how__step ${c} reveal" style="animation-delay:${.1 + i * .1}s">
-              <span class="how__n">${i + 1}</span>
-              <div class="how__body"><small class="how__eyebrow">Passo ${i + 1} de 3</small><h3>${t}</h3><p>${d}</p></div>
-              ${appPrint(["app-ingredientes.webp", "app-buscando.webp", "app-receitas.webp"][i], 96, t)}
+              <div class="how__cab"><span class="how__n">${i + 1}</span>
+              <div class="how__body"><small class="how__eyebrow">Passo ${i + 1} de 3</small><h3>${t}</h3><p>${d}</p></div></div>
+              ${appPrint(["app-ingredientes.webp", "app-buscando.webp", "app-receitas.webp"][i], 250, t)}
             </article>`).join("")}
         </div>
         <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Quero o aplicativo</button></div>
@@ -929,14 +944,13 @@ function salesPage() {
 
     <!-- 3 · 3 TELAS: prova de facilidade -->
     <div class="sec sec--escuro">
-      <div class="telas__fones">
-        <div class="telas__item">${slot("app-ingredientes.webp", "9 / 19.5", "Print do app: tela onde ela coloca os ingredientes que tem em casa")}</div>
-        <div class="telas__item">${slot("app-buscando.webp", "9 / 19.5", "Print do app: receitas encontradas")}</div>
-        <div class="telas__item"><b class="telas__pronto">Pronto! ✓</b>${slot("app-receitas.webp", "9 / 19.5", "Print do app: lista de receitas encontradas ou uma receita com o passo a passo")}</div>
-        <span class="telas__seta telas__seta--1">Passo 1 ➜</span>
-        <span class="telas__seta telas__seta--2">Passo 2 ➜</span>
+      <h2 class="tit" style="color:#fff">Veja como funciona</h2>
+      <div class="telas" data-telas>
+        ${[["app-ingredientes.webp", "Passo 1", "Coloque o que você tem em casa"], ["app-buscando.webp", "Passo 2", "O app busca as receitas"], ["app-receitas.webp", "Pronto! ✓", "Receita com ingredientes e passo a passo"]].map(([f, n, t]) => `
+          <figure class="telas__item"><figcaption><b>${n}</b>${t}</figcaption>${appPrint(f, 236, t)}</figure>`).join("")}
       </div>
-      <p class="telas__leg">Coloque o que tem <i>→</i> O app busca <i>→</i> Receitas prontas</p>
+      <div class="telas__pontos" data-telas-pontos><i class="on"></i><i></i><i></i></div>
+      <p class="telas__dica">👆 Arraste para o lado para ver as telas</p>
     </div>
 
     <!-- 4 · ANTES x DEPOIS no WhatsApp: prova de resultado -->
@@ -1117,10 +1131,17 @@ function SELO() {
 
 function mountSales(el) {
   const pararDemos = ligarDemos(el);
+  /* telas do app: pontinhos acompanham o arraste */
+  const tl = el.querySelector("[data-telas]"), tp = [...el.querySelectorAll("[data-telas-pontos] i")];
+  if (tl) tl.addEventListener("scroll", () => {
+    const itens = [...tl.children], c = tl.scrollLeft + tl.clientWidth / 2;
+    let k = 0; itens.forEach((it, j) => { if (Math.abs(it.offsetLeft + it.offsetWidth / 2 - c) < Math.abs(itens[k].offsetLeft + itens[k].offsetWidth / 2 - c)) k = j; });
+    tp.forEach((d, j) => d.classList.toggle("on", j === k));
+  }, { passive: true });
   document.body.style.background = "var(--bg)";
   track("ViewContent", { content_name: "pagina_de_vendas" });
   /* entrada suave dos blocos ao rolar */
-  const nodes = [...el.querySelectorAll(".card,.lista li,.tit,.apoio,.foto,.offer,.aviso,.pv-faq__item,.ad__par,.telas__fones,.passos li,.fecho")];
+  const nodes = [...el.querySelectorAll(".card,.lista li,.tit,.apoio,.foto,.offer,.aviso,.pv-faq__item,.ad__par,.passos li,.fecho")];
   nodes.forEach(n => n.classList.add("sq"));
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
