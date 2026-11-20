@@ -1051,11 +1051,12 @@ function salesPage() {
       <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
       <div class="pv-carrossel" data-carrossel>
         <div class="pv-carrossel__trilho">
-          ${[["Arroz com lentilha e cebola dourada"], ["Salpicão levado para a ceia da mãe"], ["Tender ao molho de laranja"], ["Batata gratinada"]].map(([t], i) => `<figure class="pv-carrossel__slide"><img class="pv-carrossel__print" src="img/exemplo-${i + 1}.webp" alt="Conversa de WhatsApp: ${t}" width="600" height="730" loading="lazy" decoding="async"><span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> Exemplo de uso</span></figure>`).join("")}
+          ${[["Arroz com lentilha e cebola dourada"], ["Salpicão levado para a ceia da mãe"], ["Tender ao molho de laranja"], ["Batata gratinada"]].map(([t], i) => `<figure class="pv-carrossel__slide"><img class="pv-carrossel__print" src="img/exemplo-${i + 1}.webp" alt="Conversa de WhatsApp: ${t}" width="600" height="730" loading="lazy" decoding="async"></figure>`).join("")}
         </div>
         <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
         <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
       </div>
+      <span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> Exemplo de uso</span>
       <div class="pv-carrossel__pontos">${[0, 1, 2, 3].map(i => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>
       <p class="pv-carrossel__nota">Exemplos ilustrativos de como o app é usado no dia a dia.</p>
 
