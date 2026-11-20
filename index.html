@@ -180,7 +180,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cel__sinal b::after{content:"";position:absolute;inset:1px 25% 1px 1px;background:#111;border-radius:1px}
 .cel__vista{position:relative;width:100%;aspect-ratio:390/844;overflow:hidden}
 .cel__vista img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
-.cel__vista iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(var(--esc));transform-origin:0 0;pointer-events:none}
+.cel__vista iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(var(--esc));transform-origin:0 0;pointer-events:none;opacity:0;transition:opacity .35s ease;background:transparent}
+.cel__vista iframe.pronto{opacity:1}
+.cel__capa{position:absolute;inset:0}
 .cel__ao-vivo{position:absolute;top:-11px;right:-6px;z-index:3;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
 /* ---------- Como usar ---------- */
 .how{display:flex;flex-direction:column;gap:22px;margin-top:16px}
@@ -360,8 +362,7 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .pv-carrossel{position:relative;overflow:hidden;border-radius:18px}
 .pv-carrossel__trilho{display:flex;transition:transform .4s ease}
 .pv-carrossel__slide{min-width:100%;padding:0 2px}
-.pv-carrossel__slide{padding:14px 2px 4px}
-.pv-carrossel__tag{max-width:86%;text-align:center;line-height:1.3}
+.pv-carrossel__slide .slot{aspect-ratio:4/5}
 .pv-carrossel__tag{display:table;margin:8px auto 0;background:#fff;border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:700;box-shadow:var(--shadow)}
 .pv-carrossel__seta{position:absolute;top:42%;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:var(--shadow);font-size:22px;font-weight:800;z-index:4}
 .pv-carrossel__seta--ant{left:6px}.pv-carrossel__seta--prox{right:6px}
@@ -612,33 +613,38 @@ function appDemo(largura, extra = "") {
   const esc = (largura / 390).toFixed(4);
   const url = `${CONFIG.appDemoUrl}${CONFIG.appDemoUrl.includes("?") ? "&" : "?"}demo=1&moldura=0&auto=0${extra}`;
   return `<div class="cel cel--demo" style="--w:${largura}px;--esc:${esc}">
-    <div class="cel__tela">${celTopo}<div class="cel__vista"><iframe data-src="${url}" title="Demonstração do aplicativo Ceia Econômica de Natal" loading="lazy" tabindex="-1"></iframe></div></div>
+    <div class="cel__tela">${celTopo}<div class="cel__vista"><img class="cel__capa" src="img/app-inicio.webp" alt="" decoding="async"><iframe data-src="${url}" title="Demonstração do aplicativo Ceia Econômica de Natal" loading="lazy" tabindex="-1"></iframe></div></div>
     <span class="cel__ao-vivo">● Ao vivo</span>
   </div>`;
 }
 function appPrint(arquivo, largura, alt) {
   return `<div class="cel" style="--w:${largura}px"><div class="cel__tela">${celTopo}<div class="cel__vista"><img src="img/${arquivo}" alt="${alt}" loading="lazy" decoding="async"></div></div></div>`;
 }
-/* só carrega e só roda a demo enquanto ela está visível na tela */
+/* a demo começa a carregar um pouco antes de chegar na tela, só aparece quando já está desenhada
+   (até lá fica a imagem da primeira tela) e só roda enquanto está visível */
+const demoCarrega = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting && !e.target.src) { e.target.src = e.target.dataset.src; demoCarrega.unobserve(e.target); }
+}), { rootMargin: "900px 0px" }) : null;
 const demoObs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
-  const f = e.target, w = () => f.contentWindow;
-  if (e.isIntersecting) {
-    if (!f.src) {
-      f.src = f.dataset.src;
-      f.addEventListener("load", () => [300, 900, 2000].forEach(t => setTimeout(() => f.dataset.vis === "1" && w() && w().postMessage("ceia-demo:continuar", "*"), t)));
-    }
-    f.dataset.vis = "1";
-    if (w()) w().postMessage("ceia-demo:continuar", "*");
-  } else {
-    f.dataset.vis = "0";
-    if (w()) w().postMessage("ceia-demo:pausar", "*");
-  }
+  const f = e.target;
+  f.dataset.vis = e.isIntersecting ? "1" : "0";
+  if (f.contentWindow && f.classList.contains("pronto")) f.contentWindow.postMessage(e.isIntersecting ? "ceia-demo:continuar" : "ceia-demo:pausar", "*");
 }), { threshold: 0.25 }) : null;
-function ligarDemos(root) {
-  root.querySelectorAll(".cel--demo iframe").forEach(f => {
-    if (demoObs) demoObs.observe(f); else f.src = f.dataset.src.replace("&auto=0", "");
+window.addEventListener("message", e => {
+  if (e.data !== "ceia-demo:pronto") return;
+  document.querySelectorAll(".cel--demo iframe").forEach(f => {
+    if (f.contentWindow !== e.source) return;
+    f.classList.add("pronto");
+    if (f.dataset.vis === "1") f.contentWindow.postMessage("ceia-demo:continuar", "*");
   });
-  return () => root.querySelectorAll(".cel--demo iframe").forEach(f => demoObs && demoObs.unobserve(f));
+});
+function ligarDemos(root) {
+  const fs = [...root.querySelectorAll(".cel--demo iframe")];
+  fs.forEach(f => {
+    if (demoObs) { demoCarrega.observe(f); demoObs.observe(f); }
+    else { f.src = f.dataset.src.replace("&auto=0", ""); f.classList.add("pronto"); }
+  });
+  return () => fs.forEach(f => { if (demoObs) { demoCarrega.unobserve(f); demoObs.unobserve(f); } });
 }
 
 /* =========================================================
@@ -1042,16 +1048,16 @@ function salesPage() {
 
     <!-- 13 · VEJA COMO USAM (carrossel) -->
     <div class="sec sec--pessego">
-      <h2 class="tit">Veja por dentro do <mark class="mt">aplicativo</mark>…</h2>
+      <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
       <div class="pv-carrossel" data-carrossel>
         <div class="pv-carrossel__trilho">
-          ${[["exemplo-1.webp", "Passo a passo: toque para marcar o que já fez"], ["exemplo-2.webp", "Pratos principais com foto, tempo e rendimento"], ["exemplo-3.webp", "Sobremesas de Natal com foto e tempo de preparo"]].map(([f, t]) => `<figure class="pv-carrossel__slide">${appPrint(f, 220, t)}<figcaption class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> ${t}</figcaption></figure>`).join("")}
+          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> Exemplo de uso</span></figure>`).join("")}
         </div>
         <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
         <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
       </div>
       <div class="pv-carrossel__pontos">${[0, 1, 2].map(i => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>
-      <p class="pv-carrossel__nota">Telas reais do aplicativo.</p>
+      <p class="pv-carrossel__nota">Exemplos ilustrativos de como o app é usado no dia a dia.</p>
 
       <!-- 14 · PAGAMENTO ÚNICO -->
       <div class="aviso">

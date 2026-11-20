@@ -38,7 +38,7 @@
     .demo-toque.aperta::after{animation:demoOnda .45s ease-out forwards}
     @keyframes demoOnda{from{transform:scale(1);opacity:.9}to{transform:scale(2.3);opacity:0}}
     .demo-foco{outline:3px solid rgba(30,91,63,.45)!important;outline-offset:2px}
-    .demo-cortina{position:fixed;inset:0;z-index:2147482000;background:#fff;opacity:0;pointer-events:none;transition:opacity .35s ease}
+    .demo-cortina{position:fixed;inset:0;z-index:2147482000;background:var(--creme, #FFF9F0);opacity:0;pointer-events:none;transition:opacity .35s ease}
     .demo-cortina.on{opacity:1}
     body.demo-moldura::after{content:"";position:fixed;inset:9px;z-index:2147482500;pointer-events:none;
       border-radius:40px;box-shadow:0 0 0 40px #141414,inset 0 0 0 2px #3a3a3a}
@@ -247,17 +247,23 @@
 
   async function rodar() {
     let inicio = PASSO_INICIAL;
+    let primeira = true;
     for (;;) {
       const v = ++volta;
       window.__demoVolta = v;
       timers.forEach(clearTimeout); timers.clear();
       try {
-        cortina.classList.add('on');
-        await dormir(380);
+        // a cortina só aparece entre uma volta e outra (na primeira o app já começa pronto)
+        if (!primeira) { cortina.classList.add('on'); await dormir(380); }
         API.resetar();
         preparar(inicio);
         await dormir(80);
         cortina.classList.remove('on');
+        if (primeira) {
+          primeira = false;
+          // avisa a página que a demo já está desenhada (ela só mostra o iframe depois disso)
+          requestAnimationFrame(() => requestAnimationFrame(() => { try { parent.postMessage('ceia-demo:pronto', '*'); } catch (e) {} }));
+        }
         while (pausado()) await dormir(200);
         for (let i = inicio - 1; i < ETAPAS.length; i++) await ETAPAS[i](v);
         await espera(600, v);
