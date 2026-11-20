@@ -250,8 +250,8 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .card--escuro{background:var(--wine);color:#fff}
 .card--verde{background:#eaf8ee}
 .tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none}
-.tile img{width:34px;height:34px}
-.ic3d{width:28px;height:28px;flex:none}
+.tile img{width:58px;height:58px;max-width:none;margin:-6px}
+.ic3d{width:36px;height:36px;flex:none;margin:-4px -3px -4px -4px}
 .pv-carrossel__tag{display:flex!important;align-items:center;gap:5px;width:max-content}
 .tile--red{background:var(--red-50)}.tile--verde{background:var(--green)}.tile--ouro{background:var(--gold-50)}
 .chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
@@ -267,7 +267,7 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .telas__leg i{color:#ffd56b;font-style:normal;margin:0 4px}
 .ad__rotulos{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
 .ad__selo{display:inline-flex;justify-self:center;align-items:center;gap:6px;color:#fff;font-weight:800;padding:7px 12px 7px 16px;border-radius:12px;font-size:17px;margin-bottom:12px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
-.ad__selo img{width:22px;height:22px;background:#fff;border-radius:50%}
+.ad__selo img{width:29px;height:29px;margin:-4px -4px -4px 0;background:#fff;border-radius:50%}
 .ad__selo--antes{background:var(--red);transform:rotate(-3deg)}.ad__selo--depois{background:var(--green);transform:rotate(2deg)}
 .ad__par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .iph{background:#111;border-radius:30px;padding:5px;box-shadow:0 16px 30px -12px rgba(0,0,0,.45),inset 0 0 0 2px #333}
@@ -319,13 +319,13 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .lista{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
 .lista li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 2px 8px rgba(92,26,31,.07)}
 .lista--solta li{background:transparent;box-shadow:none;padding:2px 0}
-.lista li::before{content:"";flex:none;width:28px;height:28px;background:center/contain no-repeat;margin-top:-2px}
+.lista li::before{content:"";flex:none;width:36px;height:36px;background:center/contain no-repeat;margin:-6px -2px -6px -4px}
 .lista--x li::before,.lista--xq li::before{background-image:url(img/ui/x.webp)}
 .lista--ok li::before,.lista--seta2 li::before{background-image:url(img/ui/check.webp)}
-.lista--seta li::before{background-image:url(img/ui/mao.webp)}
-.lista--dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lista--dupla li{flex-direction:column;gap:6px;background:#fff8f3;border-radius:12px;padding:10px;font-size:14px;font-weight:600}
-.lista--dupla li::before{background-image:url(img/ui/check.webp)}
+.lista--seta li::before{background-image:url(img/ui/mao-direita.webp)}
+.lista--dupla{display:flex;flex-direction:column;gap:10px}
+.lista--dupla li{align-items:center;gap:12px;background:transparent;padding:0;font-size:15.5px;font-weight:600}
+.lista--dupla li::before{width:32px;height:32px;margin:0;border-radius:9px;background:var(--red-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b3141f' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 12.5l4 4 9-9'/%3E%3Cpath d='M11.5 16.5l9-9'/%3E%3C/svg%3E") center/20px no-repeat}
 .foto{margin-top:6px}
 .foto .slot{aspect-ratio:16/9;border-radius:18px}
 .foto__selo{display:table;margin:-16px auto 0;position:relative;z-index:3;background:var(--red);color:#fff;font-weight:800;font-size:13px;padding:6px 14px;border-radius:99px}
@@ -979,7 +979,7 @@ function salesPage() {
       <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
       <div class="pv-carrossel" data-carrossel>
         <div class="pv-carrossel__trilho">
-          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="18" height="18"> Exemplo de uso</span></figure>`).join("")}
+          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> Exemplo de uso</span></figure>`).join("")}
         </div>
         <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
         <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
