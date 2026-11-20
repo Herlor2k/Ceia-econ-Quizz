@@ -2,210 +2,351 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#7a1018">
-<title>Descubra sua Ceia de Natal Econômica | Quiz</title>
-<link rel="preload" as="image" href="img/familia-ceia.webp">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9e1620">
+<meta name="robots" content="noindex, nofollow">
+<title>Ceia Econômica de Natal | Teste gratuito</title>
+<meta name="description" content="Teste gratuito: descubra em 1 minuto quanto dinheiro você pode economizar na ceia de Natal usando o que já tem em casa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --red:#a3161f; --red-dk:#7a1018; --green:#1f6b45; --green-dk:#134a30;
-    --gold:#e0a63b; --cream:#fdf7ee; --paper:#ffffff; --ink:#2a1a14; --muted:#7b6a60;
-    --line:#efe2d0; --radius:16px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{
-    font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
-    background:var(--cream);
-    background-image:radial-gradient(circle at 10% 0%,#fbe9d3 0,transparent 40%),radial-gradient(circle at 100% 100%,#f6e0c4 0,transparent 45%);
-    min-height:100dvh;
-  }
-  .app{max-width:480px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:0 18px calc(24px + env(safe-area-inset-bottom))}
+:root{
+  --bg:#fdf5ef; --card:#fff; --ink:#2b1712; --muted:#7a6158; --line:#f0e0d6;
+  --red:#b3141f; --red-dk:#7e0e16; --red-50:#fde8e8;
+  --green:#16a34a; --green-50:#dcfce7; --cta:#22c55e; --cta-dk:#0f8a3c;
+  --gold:#e8a628; --gold-50:#fff3d6;
+  --wine:#5c1a1f; --wine-dk:#3b0f12;
+  --blue:#2563eb; --blue-50:#e0ebff; --purple:#7c3aed; --purple-50:#efe8ff; --orange:#f59e0b; --orange-50:#fff3d6;
+  --shadow:0 10px 30px -12px rgba(92,26,31,.28),0 2px 6px rgba(43,23,18,.06);
+  --r:20px;
+}
+.c-red{--c:var(--red);--c50:var(--red-50)}
+.c-green{--c:var(--green);--c50:var(--green-50)}
+.c-gold{--c:#b97a0b;--c50:var(--gold-50)}
+.c-blue{--c:var(--blue);--c50:var(--blue-50)}
+.c-purple{--c:var(--purple);--c50:var(--purple-50)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;touch-action:manipulation}
+body{font-family:"Poppins",system-ui,sans-serif;font-weight:500;color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background:radial-gradient(120% 60% at 50% -10%,#fbe0d6 0%,rgba(251,224,214,0) 60%),var(--bg)}
+img{display:block;max-width:100%;height:auto}
+b,strong{font-weight:700}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.app{max-width:480px;margin:0 auto;padding:max(8px,env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom))}
+.hl{background:linear-gradient(transparent 55%,#ffe0a3 55%);padding:0 2px}
+.warn{color:var(--red);background:linear-gradient(transparent 60%,#ffd0d0 60%);padding:0 2px}
+.verde{color:var(--green)}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.reveal{animation:up .5s ease both}
+.ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-  /* topo */
-  header{position:sticky;top:0;z-index:5;padding:14px 0 10px;background:linear-gradient(var(--cream) 75%,transparent)}
-  .topbar{display:flex;align-items:center;gap:10px}
-  .back{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;flex:none;visibility:hidden}
-  .back.show{visibility:visible}
-  .back svg{width:18px;height:18px}
-  .brand{flex:1;text-align:center;font-family:'Fraunces',serif;font-weight:800;font-size:17px;color:var(--red-dk);letter-spacing:.2px}
-  .brand span{color:var(--green)}
-  .spacer{width:36px;flex:none}
-  .progress{margin-top:12px;display:none}
-  .progress.show{display:block}
-  .phase-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px}
-  .bar{height:8px;background:#f0e3d1;border-radius:99px;overflow:hidden}
-  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),#2f9a63);border-radius:99px;transition:width .45s ease}
+/* ---------- Botões ---------- */
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:62px;padding:16px 20px;border-radius:18px;text-align:center;text-decoration:none;
+  background:linear-gradient(180deg,#34d46c,var(--cta));color:#fff;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.3px;
+  box-shadow:0 6px 0 var(--cta-dk),0 14px 26px -8px rgba(22,163,74,.55);transition:transform .08s,box-shadow .08s;margin-top:18px}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--cta-dk)}
+.btn--pulse{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
 
-  /* telas */
-  main{flex:1;position:relative}
-  .screen{animation:in .4s ease both}
-  @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  h1,h2{font-family:'Fraunces',serif;line-height:1.15;color:var(--red-dk)}
-  h1{font-size:30px;font-weight:800}
-  h2{font-size:24px;font-weight:800;margin:8px 0 6px}
-  .sub{color:var(--muted);font-size:15.5px;line-height:1.5;margin-bottom:18px}
-  .tag{display:inline-block;background:#fff3dc;color:#9a6512;border:1px solid #f1d9a6;font-size:12px;font-weight:800;padding:5px 10px;border-radius:99px;letter-spacing:.3px;text-transform:uppercase}
+/* ---------- Capa ---------- */
+.cover{text-align:center;padding-top:18px}
+.cover h1{font-size:29px;line-height:1.15;font-weight:800;letter-spacing:-.5px}
+.lede{color:var(--muted);font-size:16px;margin:12px 0 18px}
+.u{color:var(--ink);text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:3px;text-underline-offset:3px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ba__item{position:relative;border-radius:18px;overflow:hidden;border:3px solid var(--red);background:#fff;aspect-ratio:3/4}
+.ba__item--after{border-color:var(--green)}
+.ba__item figcaption{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-weight:800;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:99px;z-index:3}
+.ba__item--after figcaption{background:var(--green)}
 
-  /* capa */
-  .hero{text-align:center;padding-top:6px}
-  .hero img.mock{width:78%;max-width:280px;margin:8px auto 4px;display:block;filter:drop-shadow(0 18px 24px rgba(122,16,24,.25))}
-  .hero h1{margin:12px 0 10px}
-  .hero h1 em{font-style:normal;color:var(--green)}
-  .fade-img{position:relative;overflow:hidden;border-radius:18px;margin:12px 0 4px;
-    -webkit-mask-image:linear-gradient(to bottom,#000 80%,transparent 100%);mask-image:linear-gradient(to bottom,#000 80%,transparent 100%)}
-  .fade-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
-  .hero-img{height:min(42dvh,340px);margin-bottom:-14px}
-  .q-img{height:min(38dvh,300px);margin:4px 0 -8px;border:1px solid var(--line);background:#fff}
-  .chips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:6px 0 20px}
-  .chip{font-size:13px;font-weight:700;background:#fff;border:1px solid var(--line);padding:6px 11px;border-radius:99px}
+/* ---------- Espaços de imagem (placeholders) ---------- */
+.slot{position:relative;overflow:hidden;border-radius:16px;background:repeating-linear-gradient(45deg,#fbeee6,#fbeee6 10px,#f7e4d8 10px,#f7e4d8 20px)}
+.slot>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.slot__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px;text-align:center;border:2px dashed #d9a98f;border-radius:inherit;color:#8a5a44}
+.slot__ph b{font-size:11.5px;font-weight:800;color:var(--red-dk);word-break:break-all}
+.slot__ph span{font-size:11px;line-height:1.35}
+.slot__ph small{font-size:10px;opacity:.75}
+.ba .slot__ph{padding-top:32px}
 
-  /* opções */
-  .opts{display:flex;flex-direction:column;gap:11px}
-  .opt{
-    display:flex;align-items:center;gap:12px;width:100%;text-align:left;
-    background:var(--paper);border:2px solid var(--line);border-radius:var(--radius);
-    padding:15px 16px;font:700 16px 'Nunito',sans-serif;color:var(--ink);cursor:pointer;
-    box-shadow:0 2px 0 #ead9c2;transition:transform .08s,border-color .15s,background .15s;
-  }
-  .opt .emo{font-size:24px;width:32px;text-align:center;flex:none}
-  .opt .txt{flex:1}
-  .opt .txt small{display:block;font-weight:600;color:var(--muted);font-size:13px;margin-top:2px}
-  .opt:active{transform:scale(.98)}
-  .opt.sel{border-color:var(--green);background:#eef8f1}
-  .opt.sel::after{content:"✓";margin-left:auto;width:24px;height:24px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:14px;flex:none}
+/* ---------- Topo do quiz ---------- */
+.q{padding-top:6px}
+.q__top{display:flex;align-items:center;gap:12px;padding:6px 0 18px}
+.q__back{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:var(--shadow);flex:none}
+.q__back svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.q__progress{flex:1;height:10px;background:#f1e0d6;border-radius:99px;overflow:hidden}
+.q__progress span{display:block;height:100%;background:linear-gradient(90deg,var(--red),#e5484d);border-radius:99px;transition:width .5s ease}
+.q__count{font-weight:700;font-size:13px;color:var(--muted);min-width:30px;text-align:right}
+.q__title{font-size:23px;line-height:1.22;font-weight:800;letter-spacing:-.3px;margin-bottom:6px}
+.q__title--long{font-size:20.5px}
+.q__sub{color:var(--muted);font-size:15px;margin-bottom:4px}
+.q__options{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:16px}
+.opt{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:2px solid var(--line);border-left:6px solid var(--c);border-radius:16px;padding:14px 14px;box-shadow:var(--shadow);transition:transform .08s,background .15s,border-color .15s}
+.opt:active{transform:scale(.98)}
+.opt__emoji{font-size:24px;width:30px;text-align:center;flex:none}
+.opt__text{flex:1;font-size:15.5px;line-height:1.3}
+.opt__check{width:24px;height:24px;border-radius:50%;border:2px solid #e4d2c7;flex:none;display:grid;place-items:center}
+.opt.is-picked{background:var(--c50);border-color:var(--c)}
+.opt.is-picked .opt__check{background:var(--c);border-color:var(--c)}
+.opt.is-picked .opt__check::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.q-img{margin:12px 0 -6px;height:min(36dvh,290px);border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;
+  -webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.q-img img{width:100%;height:100%;object-fit:cover;object-position:top}
 
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .card{background:#fff;border:2px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;padding:0;font:800 15px 'Nunito';color:var(--ink);box-shadow:0 2px 0 #ead9c2;transition:transform .08s,border-color .15s}
-  .card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:#f3e6d4}
-  .card .ph{width:100%;aspect-ratio:1/1;display:grid;place-items:center;font-size:56px;background:linear-gradient(135deg,#fbecd6,#f5dcb9)}
-  .card span{display:block;padding:11px 8px}
-  .card:active{transform:scale(.97)}
-  .card:nth-child(odd):last-child{grid-column:1/-1;display:flex;align-items:center}
-  .card:nth-child(odd):last-child .ph{width:72px;aspect-ratio:1/1;font-size:34px;flex:none}
-  .card:nth-child(odd):last-child span{text-align:left;padding:0 16px}
-  .card.sel{border-color:var(--green);background:#eef8f1}
+/* ---------- Telas de conteúdo ---------- */
+.checks{background:#fff;border-radius:var(--r);padding:16px 16px;box-shadow:var(--shadow);margin-top:16px}
+.checks__title{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--wine);margin-bottom:10px}
+.checks ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.checks li{display:flex;align-items:center;gap:10px;font-size:15.5px}
+.ok{width:26px;height:26px;border-radius:50%;background:var(--green);display:grid;place-items:center;flex:none}
+.ok svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ok--bad{background:var(--red)}
+.punch{text-align:center;font-size:19px;font-weight:800;line-height:1.3;margin-top:18px}
+.punch__hl{color:var(--green)}
+.note{border-radius:16px;padding:14px 16px;margin-top:14px;border-left:6px solid}
+.note b{display:block;font-size:16px;margin-bottom:3px}
+.note p{font-size:15px}
+.note--alert{background:var(--gold-50);border-color:var(--orange)}
+.note--good{background:var(--green-50);border-color:var(--green)}
+.note--good b{color:var(--green)}
+.photo{margin-top:16px;aspect-ratio:3/4;border-radius:20px;box-shadow:var(--shadow)}
 
-  /* botões */
-  .btn{
-    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;cursor:pointer;
-    background:linear-gradient(180deg,#2f9a63,var(--green));color:#fff;font:800 17px 'Nunito';
-    padding:18px 20px;border-radius:14px;box-shadow:0 5px 0 var(--green-dk),0 10px 22px rgba(31,107,69,.28);
-    text-decoration:none;text-align:center;transition:transform .08s,box-shadow .08s;
-  }
-  .btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--green-dk)}
-  .btn.red{background:linear-gradient(180deg,#c42630,var(--red));box-shadow:0 5px 0 var(--red-dk),0 10px 22px rgba(163,22,31,.3)}
-  .btn.red:active{box-shadow:0 1px 0 var(--red-dk)}
-  .btn.pulse{animation:pulse 1.8s infinite}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-  .fine{text-align:center;font-size:12.5px;color:var(--muted);margin-top:12px}
+/* ---------- Demo animada do app ---------- */
+.shot-wrap{margin-top:14px;display:flex;justify-content:center}
+.phone{width:236px;border-radius:34px;background:#1c1210;padding:9px;box-shadow:0 24px 40px -18px rgba(60,15,15,.5)}
+.phone--sm{width:132px;border-radius:22px;padding:6px}
+.scr{position:relative;border-radius:26px;overflow:hidden;background:#fffaf6;aspect-ratio:9/17.5}
+.phone--sm .scr{border-radius:17px}
+.scr__bar{background:var(--red);color:#fff;font-weight:800;font-size:12px;padding:12px 12px 10px;display:flex;align-items:center;gap:6px}
+.phone--sm .scr__bar{font-size:7.5px;padding:7px 7px 6px}
+.scr__body{padding:10px}
+.phone--sm .scr__body{padding:6px}
+.scr__lbl{font-size:10.5px;font-weight:700;color:var(--muted);margin:2px 0 7px}
+.phone--sm .scr__lbl{font-size:6.5px;margin-bottom:4px}
+.chipz{display:flex;flex-wrap:wrap;gap:5px}
+.chipz i{font-style:normal;font-size:10.5px;font-weight:700;background:#fff;border:1.5px solid var(--line);padding:4px 8px;border-radius:99px;opacity:0;transform:scale(.6);transition:all .3s cubic-bezier(.3,1.6,.5,1)}
+.phone--sm .chipz i{font-size:6.5px;padding:2px 5px;border-width:1px}
+.chipz i.on{opacity:1;transform:none;background:var(--green-50);border-color:var(--green);color:#11602f}
+.scr__btn{margin-top:10px;background:var(--cta);color:#fff;text-align:center;font-weight:800;font-size:11px;border-radius:10px;padding:8px;transition:transform .2s}
+.phone--sm .scr__btn{font-size:7px;padding:5px;border-radius:7px;margin-top:6px}
+.scr__btn.tap{transform:scale(.92);background:var(--cta-dk)}
+.scr__search{position:absolute;inset:38px 0 0 0;background:rgba(255,250,246,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:0;pointer-events:none;transition:opacity .3s;padding:14px;text-align:center}
+.scr__search.on{opacity:1}
+.scr__search p{font-size:11px;font-weight:700;color:var(--wine)}
+.phone--sm .scr__search p{font-size:7px}
+.phone--sm .scr__res,.phone--sm .scr__search{top:24px}
+.pv-carrossel .slot__ph{padding:10px 50px}
+.spinner{width:38px;height:38px;border-radius:50%;border:4px solid #f3dcd0;border-top-color:var(--red);animation:spin .8s linear infinite}
+.phone--sm .spinner{width:22px;height:22px;border-width:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scr__res{position:absolute;inset:38px 0 0 0;background:#fffaf6;opacity:0;pointer-events:none;transition:opacity .3s}
+.scr__res.on{opacity:1}
+.rc{display:flex;gap:7px;align-items:center;background:#fff;border-radius:10px;padding:5px;margin-bottom:6px;box-shadow:0 2px 8px rgba(0,0,0,.07);opacity:0;transform:translateY(10px);transition:all .35s ease}
+.rc.on{opacity:1;transform:none}
+.rc img{width:36px;height:36px;border-radius:7px;object-fit:cover;flex:none}
+.rc b{display:block;font-size:10.5px;line-height:1.2}
+.rc small{display:block;font-size:9px;color:var(--green);font-weight:700}
+.phone--sm .rc{gap:4px;padding:3px;border-radius:6px;margin-bottom:4px}
+.phone--sm .rc img{width:20px;height:20px;border-radius:4px}
+.phone--sm .rc b{font-size:6.5px}
+.phone--sm .rc small{font-size:5.5px}
+.res__top{font-size:12px;font-weight:800;color:var(--green);margin-bottom:8px;text-align:center}
+.phone--sm .res__top{font-size:7.5px;margin-bottom:5px}
+.steps-mini{list-style:none;counter-reset:s}
+.steps-mini li{font-size:9.5px;display:flex;gap:6px;margin-bottom:6px;line-height:1.3;opacity:0;transition:opacity .3s}
+.steps-mini li.on{opacity:1}
+.steps-mini li::before{counter-increment:s;content:counter(s);width:15px;height:15px;border-radius:50%;background:var(--red);color:#fff;font-size:8.5px;font-weight:800;display:grid;place-items:center;flex:none}
+.phone--sm .steps-mini li{font-size:6px;gap:3px;margin-bottom:4px}
+.phone--sm .steps-mini li::before{width:10px;height:10px;font-size:5.5px}
+.rec__img{height:64px;border-radius:9px;overflow:hidden;margin-bottom:7px}
+.phone--sm .rec__img{height:38px;border-radius:5px;margin-bottom:4px}
+.rec__img img{width:100%;height:100%;object-fit:cover}
+.rec__t{font-size:12px;font-weight:800;margin-bottom:5px}
+.phone--sm .rec__t{font-size:7.5px;margin-bottom:3px}
 
-  /* bloco de explicação */
-  .info{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin:6px 0 18px;box-shadow:0 8px 24px rgba(90,40,10,.06)}
-  .info p{font-size:15.5px;line-height:1.55;margin-bottom:10px}
-  .info p:last-child{margin-bottom:0}
-  .info b{color:var(--red-dk)}
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 4px}
-  .compare div{border-radius:12px;padding:12px;font-size:13.5px;line-height:1.45;font-weight:600}
-  .compare .bad{background:#fdecec;color:#7a1018}
-  .compare .good{background:#e9f6ee;color:#134a30}
-  .compare strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
-  .stat{display:flex;align-items:center;gap:14px;background:#fff7e8;border:1px dashed #e9c98a;border-radius:14px;padding:14px;margin-bottom:16px}
-  .stat .big{font-family:'Fraunces',serif;font-size:34px;font-weight:800;color:var(--red)}
-  .stat p{font-size:14px;line-height:1.45}
+/* ---------- Como usar ---------- */
+.how{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.how__step{display:flex;gap:12px;align-items:center;background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--shadow);border-top:5px solid var(--c)}
+.how__n{width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;font-weight:800;display:grid;place-items:center;flex:none;align-self:flex-start}
+.how__body{flex:1}
+.how__eyebrow{font-size:11px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.5px}
+.how__body h3{font-size:16.5px;line-height:1.2;margin:2px 0 4px}
+.how__body p{font-size:13.5px;color:var(--muted)}
 
-  /* loading */
-  .loading{text-align:center;padding-top:30px}
-  .ring{width:150px;height:150px;margin:0 auto 22px;position:relative}
-  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-  .ring circle{fill:none;stroke-width:10}
-  .ring .bg{stroke:#f0e3d1}
-  .ring .fg{stroke:var(--green);stroke-linecap:round;stroke-dasharray:408;stroke-dashoffset:408;transition:stroke-dashoffset .2s linear}
-  .ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:var(--red-dk)}
-  .steps{list-style:none;text-align:left;max-width:330px;margin:22px auto 0;display:flex;flex-direction:column;gap:12px}
-  .steps li{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#b9a898;transition:color .3s}
-  .steps li .dot{width:24px;height:24px;border-radius:50%;border:2px solid #e3d3bf;display:grid;place-items:center;font-size:13px;flex:none;transition:all .3s}
-  .steps li.on{color:var(--ink)}
-  .steps li.on .dot{border-color:var(--gold);border-top-color:transparent;animation:spin .8s linear infinite}
-  .steps li.done{color:var(--green-dk)}
-  .steps li.done .dot{background:var(--green);border-color:var(--green);color:#fff;animation:none}
-  @keyframes spin{to{transform:rotate(360deg)}}
+/* ---------- Diagnóstico ---------- */
+.diag{text-align:center;padding-top:30px}
+.ring{width:150px;height:150px;margin:0 auto 20px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke:#f1e0d6;stroke-width:10}
+.ring .ring__bar{stroke:var(--red);stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p));transition:stroke-dashoffset .15s linear}
+.ring__n{position:absolute;inset:0;display:grid;place-items:center;font-size:34px;font-weight:800}
+.diag__steps{list-style:none;text-align:left;margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.diag__steps li{display:flex;gap:11px;align-items:flex-start;opacity:.4;transition:opacity .3s}
+.diag__steps li.is-active,.diag__steps li.is-done{opacity:1}
+.diag__steps b{display:block;font-size:14.5px;line-height:1.3}
+.diag__steps small{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
+.diag__ic{width:24px;height:24px;border-radius:50%;border:2px solid #e3cfc4;flex:none;display:grid;place-items:center;position:relative;margin-top:1px}
+.diag__ic .spin{display:none;position:absolute;inset:-2px;border-radius:50%;border:2px solid transparent;border-top-color:var(--red);animation:spin .8s linear infinite}
+.diag__ic svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;display:none}
+li.is-active .diag__ic .spin{display:block}
+li.is-done .diag__ic{background:var(--green);border-color:var(--green)}
+li.is-done .diag__ic svg{display:block}
+.diag__res{text-align:left;opacity:0;transform:translateY(12px);transition:all .5s ease}
+.diag__res.is-in{opacity:1;transform:none}
+.diag__tag{display:table;margin:0 auto 10px;background:#fff;border:2px solid var(--line);border-radius:99px;padding:5px 14px;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.diag__res .q__title{text-align:center}
+.risk{background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--shadow);margin-top:14px}
+.risk__top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:700;font-size:14.5px}
+.risk__lvl{color:#fff;border-radius:10px;padding:5px 11px;font-size:13px;text-transform:uppercase;flex:none}
+.risk__lvl--alto{background:var(--red)}.risk__lvl--médio{background:var(--orange)}.risk__lvl--moderado{background:#eab308}
+.risk__bar{height:14px;background:#f1e7e1;border-radius:99px;margin:12px 0 8px;overflow:hidden}
+.risk__bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#16a34a,#eab308 55%,#ef4444);transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}
+.is-in .risk__bar i{width:var(--w)}
+.risk__time{font-size:13.5px;color:var(--muted);font-weight:600}
+.finds{background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--shadow);margin-top:14px}
+.finds ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.finds li{display:flex;gap:10px;font-size:15px;line-height:1.4}
+.finds__ic{width:28px;height:28px;border-radius:8px;background:var(--gold-50);color:#c57d07;display:grid;place-items:center;flex:none;font-size:15px}
 
-  /* resultado */
-  .result-head{text-align:center;background:linear-gradient(160deg,var(--red),var(--red-dk));color:#fff;border-radius:20px;padding:22px 18px;margin-bottom:18px;position:relative;overflow:hidden}
-  .result-head::before{content:"❄ ✦ ❄ ✦ ❄ ✦ ❄";position:absolute;top:6px;left:0;right:0;font-size:11px;opacity:.35;letter-spacing:6px}
-  .result-head h2{color:#fff;font-size:25px;margin-top:8px}
-  .result-head .tag{background:rgba(255,255,255,.15);color:#ffe2a8;border-color:rgba(255,255,255,.25)}
-  .result-head p{opacity:.92;font-size:15px;line-height:1.5;margin-top:8px}
-  .profile{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
-  .profile div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
-  .profile small{display:block;font-size:11.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-  .profile b{font-size:15px;color:var(--ink)}
-  .plan{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:18px}
-  .plan h3{font-family:'Fraunces',serif;color:var(--red-dk);font-size:19px;margin-bottom:12px}
-  .plan ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-  .plan li{display:flex;gap:10px;font-size:15px;line-height:1.4}
-  .plan li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:#e9f6ee;color:var(--green);display:grid;place-items:center;font-weight:900;font-size:13px}
-  .mockrow{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px 18px;padding:4px 18px 8px}
-  .mockrow img{height:190px;border-radius:10px;scroll-snap-align:start;box-shadow:0 6px 16px rgba(0,0,0,.12);flex:none}
-  .offer{border:2.5px solid var(--green);border-radius:20px;background:#fff;padding:20px 18px;margin-bottom:14px;position:relative}
-  .offer.best{border-color:var(--gold);box-shadow:0 12px 30px rgba(224,166,59,.25)}
-  .ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#4a2c00;font-size:12px;font-weight:900;padding:5px 14px;border-radius:99px;white-space:nowrap;letter-spacing:.3px}
-  .offer h4{font-family:'Fraunces',serif;font-size:20px;color:var(--red-dk);text-align:center;margin-top:4px}
-  .offer .desc{text-align:center;font-size:14px;color:var(--muted);margin:4px 0 10px}
-  .offer ul{list-style:none;margin:10px 0 14px;display:flex;flex-direction:column;gap:7px}
-  .offer li{font-size:14.5px;display:flex;gap:8px;line-height:1.35}
-  .offer li::before{content:"🎁";flex:none}
-  .offer .base li::before{content:"✓";color:var(--green);font-weight:900}
-  .price{text-align:center;margin:6px 0 14px}
-  .price s{color:#a99a8e;font-size:15px}
-  .price .now{display:block;font-family:'Fraunces',serif;font-size:42px;font-weight:800;color:var(--green);line-height:1.1}
-  .price small{font-size:13px;color:var(--muted);font-weight:700}
-  .timer{display:flex;align-items:center;justify-content:center;gap:8px;background:#fff3dc;border:1px solid #f1d9a6;color:#7a4a00;border-radius:12px;padding:10px;font-weight:800;font-size:14px;margin-bottom:16px}
-  .timer b{font-variant-numeric:tabular-nums}
-  .guarantee{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin:18px 0}
-  .guarantee img{width:84px;flex:none}
-  .guarantee p{font-size:14px;line-height:1.45}
-  .guarantee b{display:block;font-family:'Fraunces',serif;color:var(--red-dk);font-size:17px;margin-bottom:3px}
-
-  /* bônus + pop-up */
-  .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .row s{color:#a99a8e;font-size:13.5px;white-space:nowrap;flex:none}
-  .offer li.row::before{display:none}
-  .offer .base li.row span::before{content:"✓ ";color:var(--green);font-weight:900}
-  .extras{margin-top:4px!important}
-  .bonus{display:flex;gap:12px;background:#fffaf1;border:2px solid #f1d58f;border-radius:16px;padding:12px;margin:10px 0}
-  .bonus img{width:78px;height:110px;object-fit:cover;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.18);flex:none;background:#f3e6d4}
-  .btag{display:inline-block;background:var(--red);color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.3px;padding:3px 9px;border-radius:99px}
-  .bonus h5{font-family:'Fraunces',serif;color:var(--green-dk);font-size:16.5px;line-height:1.2;margin:6px 0 3px}
-  .bonus p{font-size:13px;color:var(--muted);line-height:1.35}
-  .bonus s{display:block;font-size:13px;color:#a99a8e;margin:4px 0 8px}
-  .see{border:0;background:var(--green);color:#fff;font:800 13.5px 'Nunito';padding:9px 14px;border-radius:99px;cursor:pointer}
-  .see:active{transform:scale(.96)}
-  .modal{position:fixed;inset:0;z-index:50;background:rgba(30,12,8,.55);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
-  @keyframes fade{from{opacity:0}}
-  .sheet{background:var(--cream);width:100%;max-width:480px;max-height:86dvh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;animation:up .3s ease}
-  @keyframes up{from{transform:translateY(40px);opacity:0}}
-  .sheet-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
-  .sheet-head img{width:44px;height:62px;object-fit:cover;border-radius:4px;flex:none}
-  .sheet-head h3{flex:1;font-family:'Fraunces',serif;color:var(--red-dk);font-size:18px;line-height:1.2}
-  .sheet-head h3 small{display:block;font-family:'Nunito';font-size:12.5px;color:var(--muted);font-weight:700;margin-top:2px}
-  .close{width:36px;height:36px;border-radius:50%;border:0;background:#f0e3d1;font-size:18px;cursor:pointer;flex:none}
-  .sheet-body{overflow-y:auto;padding:6px 18px calc(18px + env(safe-area-inset-bottom))}
-  .sheet-body h4{font-family:'Fraunces',serif;color:var(--green-dk);font-size:16px;margin:16px 0 8px}
-  .sheet-body ol{background:#fff;border:1px solid var(--line);border-radius:14px;padding:6px 14px 6px 36px}
-  .sheet-body li{font-size:14.5px;padding:7px 0;border-bottom:1px dashed #f0e3d1}
-  .sheet-body li:last-child{border-bottom:0}
-  footer{text-align:center;font-size:11.5px;color:#a99a8e;padding:18px 0 4px;line-height:1.5}
-
-  /* neve */
-  .snow{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-  .snow i{position:absolute;top:-10px;color:#e8cfae;animation:fall linear infinite;font-style:normal}
-  @keyframes fall{to{transform:translateY(105vh) rotate(260deg)}}
-  .app{position:relative;z-index:1}
+/* ================= PÁGINA DE VENDAS ================= */
+.pv{margin:0 -16px}
+.sec{padding:30px 20px}
+.sec--claro{background:transparent}
+.sec--branco{background:#fff}
+.sec--escuro{background:var(--wine);color:#fff}
+.sec--sem{background:#fff1f0}
+.sec--com{background:#effbf2}
+.sec--dor{background:#fff}
+.pv__bar{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;margin-bottom:14px}
+.logo{text-align:center;font-weight:800;line-height:1.05;font-size:18px;color:var(--wine)}
+.logo span{display:block;color:var(--red);font-size:22px}
+.logo small{display:block;font-size:10px;letter-spacing:2px;color:var(--green);text-transform:uppercase}
+.pv__h1{text-align:center;font-size:27px;line-height:1.18;font-weight:800;letter-spacing:-.4px}
+.pv-red{color:var(--red)}
+mark.amb{background:#ffd56b;border-radius:8px;padding:0 6px;color:inherit}
+mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;padding:0 2px}
+.zap-selo{display:flex;align-items:center;justify-content:center;gap:9px;background:#fff;border-radius:99px;padding:9px 16px;margin:16px auto;box-shadow:var(--shadow);font-size:14px;font-weight:600;width:max-content;max-width:100%}
+.zap-selo__ic{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;flex:none;font-size:15px}
+.topo{position:relative;border-radius:22px;overflow:visible}
+.topo .slot{aspect-ratio:16/10;border-radius:22px}
+.orc{position:absolute;right:-6px;bottom:-22px;width:52%;background:#fff;border-radius:14px;box-shadow:0 16px 30px -10px rgba(0,0,0,.35);overflow:hidden;z-index:5;font-size:9.5px}
+.orc__top{background:var(--red);color:#fff;font-weight:800;padding:7px 9px;font-size:10.5px}
+.orc__corpo{padding:8px 9px}
+.orc__lbl{font-weight:700;color:var(--muted);font-size:8.5px;margin-bottom:4px}
+.orc__chips{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px}
+.orc__chips i{font-style:normal;background:var(--green-50);color:#11602f;border:1px solid var(--green);border-radius:99px;padding:1px 6px;font-weight:700;font-size:8.5px}
+.orc__res{display:flex;justify-content:space-between;align-items:center;background:var(--gold-50);border-radius:8px;padding:6px 7px;font-weight:800}
+.orc__res b{background:var(--green);color:#fff;border-radius:6px;padding:2px 6px}
+.card{background:#fff;border-radius:var(--r);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.card:last-child{margin-bottom:0}
+.card p{font-size:15.5px;margin-top:8px}
+.card__head{display:flex;align-items:center;gap:12px}
+.card__head h3{font-size:19px;line-height:1.2;font-weight:800}
+.card--escuro{background:var(--wine);color:#fff}
+.card--verde{background:#eaf8ee}
+.tile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;flex:none}
+.tile--red{background:var(--red-50)}.tile--verde{background:var(--green)}.tile--ouro{background:var(--gold-50)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chips li{background:#fdf1ea;border:1px solid var(--line);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600}
+.chips__mais{background:var(--red)!important;color:#fff;border-color:var(--red)!important}
+.telas__fones{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;position:relative;padding-top:24px}
+.telas__item{position:relative}
+.telas__item .slot{aspect-ratio:9/19.5;border-radius:16px;border:4px solid #1c1210;background-color:#fff}
+.telas__pronto{position:absolute;top:-24px;right:0;color:#ffd56b;font-weight:800;font-size:14px}
+.telas__seta{position:absolute;top:46%;z-index:4;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.telas__seta--1{left:calc(33.3% - 26px)}.telas__seta--2{left:calc(66.6% - 26px)}
+.telas__leg{text-align:center;font-weight:700;margin-top:14px;font-size:14.5px}
+.telas__leg i{color:#ffd56b;font-style:normal;margin:0 4px}
+.ad__rotulos{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.ad__selo{display:inline-flex;justify-self:center;align-items:center;gap:6px;color:#fff;font-weight:800;padding:6px 14px;border-radius:99px;font-size:15px;margin-bottom:10px}
+.ad__selo--antes{background:var(--red)}.ad__selo--depois{background:var(--green)}
+.ad__par{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wa{background:#efe7dd;border-radius:18px;overflow:hidden;border:5px solid #1c1210;font-size:10.5px}
+.wa__head{background:#075e54;color:#fff;padding:8px 9px;display:flex;gap:7px;align-items:center}
+.wa__av{width:24px;height:24px;border-radius:50%;background:#cfd8dc;display:grid;place-items:center;font-size:13px;flex:none}
+.wa__head b{display:block;font-size:11px;line-height:1.1}
+.wa__head small{font-size:8.5px;opacity:.85}
+.wa__body{padding:8px 7px;display:flex;flex-direction:column;gap:5px;min-height:290px}
+.wa__dia{align-self:center;background:#e1f2fb;color:#4b6470;border-radius:6px;padding:2px 7px;font-size:8.5px}
+.msg{max-width:88%;padding:5px 7px 13px;border-radius:8px;position:relative;line-height:1.3;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.msg--eu{align-self:flex-end;background:#d9fdd3}
+.msg--ela{align-self:flex-start;background:#fff}
+.msg small{position:absolute;right:6px;bottom:2px;font-size:7.5px;color:#7c8b84}
+.msg__n{display:block;font-weight:700;font-size:8.5px;margin-bottom:1px}
+.ad__leg{font-weight:700;font-size:14px;margin-top:10px}
+.ad__leg--antes{color:var(--red)}.ad__leg--depois{color:var(--green)}
+.ad__faixa{text-align:center;font-weight:800;font-size:18px;margin-top:16px;line-height:1.3}
+.ad__faixa span{color:var(--green)}
+.tit{font-size:23px;line-height:1.22;font-weight:800;text-align:center;letter-spacing:-.3px;margin-bottom:14px}
+.sec--sem .tit{color:var(--red)}.sec--com .tit{color:var(--green)}
+.apoio{text-align:center;font-size:16px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.rot{font-weight:800;margin:14px 0 8px;font-size:15.5px}
+.rot--solta{text-align:center}
+.lista{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+.lista li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:0 2px 8px rgba(92,26,31,.07)}
+.lista--solta li{background:transparent;box-shadow:none;padding:2px 0}
+.lista li::before{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;margin-top:1px}
+.lista--x li::before,.lista--xq li::before{content:"✕";background:var(--red)}
+.lista--ok li::before{content:"✓";background:var(--green)}
+.lista--seta li::before{content:"➜";background:var(--gold);color:#4a2c00}
+.lista--seta2 li::before{content:"➜";background:var(--green)}
+.lista--dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lista--dupla li{flex-direction:column;gap:6px;background:#fff8f3;border-radius:12px;padding:10px;font-size:14px;font-weight:600}
+.lista--dupla li::before{content:"✓";background:var(--green)}
+.foto{margin-top:6px}
+.foto .slot{aspect-ratio:16/9;border-radius:18px}
+.foto__selo{display:table;margin:-16px auto 0;position:relative;z-index:3;background:var(--red);color:#fff;font-weight:800;font-size:13px;padding:6px 14px;border-radius:99px}
+.card__centro{text-align:center}
+.card__marca{margin:4px 0 8px}
+.passos{list-style:none;display:flex;flex-direction:column;gap:8px}
+.passos li{display:flex;gap:10px;align-items:center;background:#fdf1ea;border-radius:12px;padding:10px 12px;font-weight:600}
+.passos b{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;flex:none}
+.card__ok{text-align:center;font-weight:800;font-size:17px;margin:14px 0}
+.pv-carrossel{position:relative;overflow:hidden;border-radius:18px}
+.pv-carrossel__trilho{display:flex;transition:transform .4s ease}
+.pv-carrossel__slide{min-width:100%;padding:0 2px}
+.pv-carrossel__slide .slot{aspect-ratio:4/5}
+.pv-carrossel__tag{display:table;margin:8px auto 0;background:#fff;border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:700;box-shadow:var(--shadow)}
+.pv-carrossel__seta{position:absolute;top:42%;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:var(--shadow);font-size:22px;font-weight:800;z-index:4}
+.pv-carrossel__seta--ant{left:6px}.pv-carrossel__seta--prox{right:6px}
+.pv-carrossel__pontos{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.pv-carrossel__pontos i{width:8px;height:8px;border-radius:50%;background:#e3cfc4}
+.pv-carrossel__pontos i.on{background:var(--red);width:20px;border-radius:99px}
+.pv-carrossel__nota{text-align:center;font-size:12px;color:var(--muted);margin-top:8px}
+.aviso{background:var(--wine);color:#fff;border-radius:var(--r);padding:22px 18px;text-align:center;margin:26px 0}
+.aviso__tag{display:inline-block;background:#ffd56b;color:#4a2c00;font-weight:800;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+.aviso__sem{display:flex;justify-content:center;gap:16px;font-weight:800;margin:12px 0 6px;font-size:15px}
+.aviso__sem s{color:#ff8a8a}
+.aviso__tit{font-size:22px;line-height:1.25;font-weight:800}
+.aviso__tit mark{background:#ffd56b;color:#4a2c00;border-radius:6px;padding:0 6px}
+.aviso__zap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:14px;opacity:.95}
+.offer{background:#fff;border:3px solid var(--green);border-radius:24px;padding:26px 18px 20px;position:relative;text-align:center;box-shadow:0 18px 40px -16px rgba(22,163,74,.45);margin-top:22px}
+.offer__off{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-weight:800;padding:5px 16px;border-radius:99px;font-size:14px;white-space:nowrap}
+.offer__k{font-size:15px;color:var(--muted);font-weight:600}
+.offer__k s{color:var(--red)}
+.offer__price{font-size:50px;font-weight:800;color:var(--green);line-height:1.05;letter-spacing:-1px}
+.offer__once{font-size:13px;color:var(--muted);font-weight:600}
+.offer__stack{list-style:none;text-align:left;margin:16px 0 6px;border-top:1px dashed var(--line)}
+.offer__stack li{display:flex;justify-content:space-between;gap:10px;padding:9px 2px;border-bottom:1px dashed var(--line);font-size:14.5px;font-weight:600}
+.offer__stack em{font-style:normal;color:var(--green);font-weight:800;font-size:13px}
+.offer__sum{margin-top:10px;font-size:15px}
+.offer__sum b{color:var(--green)}
+.offer__safe{font-size:13px;color:var(--muted);margin-top:12px;font-weight:600}
+.pv-selo{width:190px;margin:6px auto 12px}
+.sec--garantia .tit{color:#fff}
+.sec--garantia .rot{color:#ffd56b}
+.txt{font-size:15.5px;margin-bottom:10px;line-height:1.55}
+.faq{display:flex;flex-direction:column;gap:10px}
+.pv-faq__item{background:#fdf5ef;border-radius:14px;padding:0 16px;border:1px solid var(--line)}
+.pv-faq__item summary{list-style:none;cursor:pointer;font-weight:700;padding:15px 26px 15px 0;position:relative;font-size:15.5px}
+.pv-faq__item summary::-webkit-details-marker{display:none}
+.pv-faq__item summary::after{content:"+";position:absolute;right:0;top:11px;font-size:22px;color:var(--red);font-weight:800}
+.pv-faq__item[open] summary::after{content:"–"}
+.pv-faq__item p{padding:0 0 15px;font-size:15px;color:#5a4038}
+.fecho{text-align:center;font-size:16px;margin-top:16px}
+footer{text-align:center;font-size:11.5px;color:#a8928a;padding:22px 0 0;line-height:1.5}
+.sq{opacity:0;transform:translateY(16px);transition:opacity .5s ease var(--d,0ms),transform .5s ease var(--d,0ms)}
+.sq.on{opacity:1;transform:none}
 </style>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -228,341 +369,712 @@ fbq('track','PageView');
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1122892143970982&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
-<div class="snow" id="snow"></div>
-<div class="app">
-  <header>
-    <div class="topbar">
-      <button class="back" id="back" aria-label="Voltar"><svg viewBox="0 0 24 24" fill="none" stroke="#7a1018" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <div class="brand">🎄 Ceia <span>Econômica</span> de Natal</div>
-      <div class="spacer"></div>
-    </div>
-    <div class="progress" id="progress">
-      <div class="phase-label"><span id="phaseName">Etapa 1 de 3</span><span id="stepCount">1/18</span></div>
-      <div class="bar"><i id="barFill"></i></div>
-    </div>
-  </header>
-  <main id="main"></main>
-  <footer>Este site não é afiliado ao Facebook ou à Meta.<br>Preços de ingredientes são apenas referência.</footer>
-</div>
-
+<div class="app" id="app"></div>
 <script>
-/* ============ CONFIGURAÇÃO ============ */
-const IMG = "https://ceia-econ-mica-de-natal.vercel.app/img/";
-const CHECKOUT_ESSENCIAL = "https://pay.wiapy.com/X79lQo-CNcrL";
-const CHECKOUT_COMPLETO  = "https://pay.wiapy.com/6aebb363605b6cd0b4100cb9";
-const PROMO_FIM = new Date("2026-12-01T23:59:59-03:00");
-
-/* ============ PERGUNTAS ============
-   fase 1 = o que a pessoa quer (3)
-   fase 2 = admitir o problema (5)
-   fase 3 = mecanismo da solução + sucesso presumido + sequência de sims (10) */
-const Q = [
-  // ---------- FASE 1 ----------
-  {phase:1,id:"idade",q:"Qual a sua idade?",sub:"Assim adaptamos o plano à sua rotina.",opts:[
-    {e:"🌱",t:"18 a 29 anos"},{e:"🌿",t:"30 a 44 anos"},{e:"🌳",t:"45 a 59 anos"},{e:"🌲",t:"60 anos ou mais"}]},
-  {phase:1,id:"pessoas",q:"Quantas pessoas vão estar na sua ceia este ano?",sub:"Vamos calcular as quantidades certas para você.",opts:[
-    {e:"👫",t:"Até 4 pessoas"},{e:"👨‍👩‍👧",t:"5 a 8 pessoas"},{e:"👨‍👩‍👧‍👦",t:"9 a 15 pessoas"},{e:"🎉",t:"Mais de 15 pessoas"}]},
-  {phase:1,id:"quer",q:"Você quer fazer uma ceia farta e bonita neste Natal gastando pouco?",opts:[
-    {e:"😍",t:"Sim, quero muito!"},{e:"🙂",t:"Sim, se for possível"},{e:"🤔",t:"Talvez, quero entender como"}]},
-
-  // ---------- FASE 2 ----------
-  {phase:2,id:"orcamento",q:"Como está o seu orçamento para o Natal este ano?",img:"img/noticia-oglobo.webp",imgAlt:"Notícia: Ceia de Natal fica mais cara",opts:[
-    {e:"😰",t:"Bem apertado",d:"Preciso fazer o dinheiro render"},
-    {e:"😕",t:"Mais curto que o ano passado",d:"Tudo subiu de preço"},
-    {e:"😐",t:"Razoável, mas não quero gastar à toa"}]},
-  {phase:2,id:"ideias",q:"Você já ficou sem ideia do que preparar além do “arroz com frango” de sempre?",opts:[
-    {e:"🙋‍♀️",t:"Sim, todo ano é a mesma coisa"},{e:"😅",t:"Às vezes fico perdida"},{e:"🤷",t:"Raramente"}]},
-  {phase:2,id:"quantidade",q:"Já aconteceu de sobrar muita comida… ou faltar na hora de servir?",opts:[
-    {e:"🗑️",t:"Sim, sobra muito e acabo jogando fora"},{e:"😳",t:"Sim, já faltou e fiquei sem graça"},{e:"😬",t:"As duas coisas já aconteceram"},{e:"👌",t:"Nunca aconteceu"}]},
-  {phase:2,id:"tradicao",q:"Você sente pressão para manter os pratos tradicionais da ceia, mesmo com tudo tão caro?",opts:[
-    {e:"😩",t:"Sim, a família espera os clássicos"},{e:"💭",t:"Um pouco, queria agradar todo mundo"},{e:"😌",t:"Não, sou flexível"}]},
-  {phase:2,id:"disposta",q:"Se alguém te mostrasse o caminho, você estaria disposta a se organizar com antecedência para gastar menos?",opts:[
-    {e:"💪",t:"Sim, faço o que for preciso"},{e:"👍",t:"Sim, se for simples de seguir"}]},
-
-  // ---------- TRANSIÇÃO (tela informativa) ----------
-  {type:"info",phase:3,id:"mecanismo"},
-
-  // ---------- FASE 3 ----------
-  {phase:3,id:"sabia_plan",q:"Sabia que o segredo de uma ceia econômica não é comprar o ingrediente mais barato, e sim ter um PLANO?",sub:"Cardápio certo + lista de compras + quantidade por pessoa = zero desperdício.",opts:[
-    {e:"💡",t:"Não sabia, faz todo sentido!"},{e:"✅",t:"Já imaginava, mas nunca soube como fazer"}]},
-  {phase:3,id:"sabia_subst",q:"Sabia que dá para trocar ingredientes caros por versões econômicas sem ninguém perceber a diferença no sabor?",opts:[
-    {e:"😮",t:"Sério? Quero saber quais!"},{e:"👀",t:"Já ouvi falar, quero aprender"}]},
-  {phase:3,id:"prato",type:"grid",q:"Qual prato principal você gostaria de colocar na mesa?",sub:"Escolha o seu favorito.",opts:[
-    {img:"ce-pernil.3db0c7f7.webp",t:"Pernil assado"},
-    {img:"ce-frango-assado.6ae5452e.webp",t:"Frango assado"},
-    {img:"bacalhau.webp",local:1,t:"Bacalhau"},
-    {img:"chester.webp",local:1,t:"Chester / Peru"},
-    {e:"🍽️",t:"Outro"}]},
-  {phase:3,id:"sobremesa",type:"grid",q:"E qual sobremesa não pode faltar?",opts:[
-    {img:"pave.webp",local:1,t:"Pavê"},
-    {img:"rabanada.webp",local:1,t:"Rabanada"},
-    {img:"torta.webp",local:1,t:"Torta / Bolo"},
-    {img:"panetone.webp",local:1,t:"Panetone caseiro"}]},
-  {phase:3,id:"sentir",q:"Imagine sua família elogiando cada prato da ceia… Como você se sentiria?",opts:[
-    {e:"😊",t:"Orgulhosa de mim"},{e:"😌",t:"Aliviada, sem estresse"},{e:"🥰",t:"Feliz por ver todos reunidos"},{e:"✨",t:"Tudo isso junto!"}]},
-  {phase:3,id:"economia",q:"E o que você faria com o dinheiro que vai economizar na ceia?",opts:[
-    {e:"🎁",t:"Compraria mais presentes"},{e:"💳",t:"Pagaria contas de janeiro"},{e:"🏖️",t:"Guardaria para as férias"},{e:"🐷",t:"Colocaria na poupança"}]},
-  {phase:3,id:"entendeu",q:"Você entendeu que, com cardápio pronto e lista de compras, você economiza tempo E dinheiro?",opts:[
-    {e:"✅",t:"Sim, entendi!"},{e:"👍",t:"Sim, com certeza"}]},
-  {phase:3,id:"cronograma",q:"Acha que com um cronograma de preparo você chega na noite de Natal tranquila, sem correria na cozinha?",opts:[
-    {e:"✅",t:"Sim, isso mudaria tudo!"},{e:"🙌",t:"Sim, é exatamente o que eu preciso"}]},
-  {phase:3,id:"antecedencia",q:"Você concorda que comprar antes da alta de preços de dezembro é a decisão mais inteligente?",opts:[
-    {e:"✅",t:"Sim, concordo totalmente"},{e:"👍",t:"Sim, faz sentido"}]},
-  {phase:3,id:"quer_plano",q:"Você quer receber seu plano de Ceia Econômica personalizado?",sub:"Com receitas, lista de compras e quantidades para a sua família.",opts:[
-    {e:"🎄",t:"Sim, quero meu plano agora!"}]}
-];
-
-const TOTAL = Q.filter(x=>x.type!=="info").length;
-const PHASES = {1:"Etapa 1 de 3 · Seu perfil",2:"Etapa 2 de 3 · Seus desafios",3:"Etapa 3 de 3 · Sua ceia ideal"};
-
-
-/* ============ BÔNUS (conteúdo dos pop-ups) ============ */
-const BONUS=[
- {titulo:"Ceia: 27 Receitas para o Prato Principal",capa:"r27-capa.71c5ec36.webp",valor:"27,90",desc:"Carnes, assados, aves, peixes e bacalhau para o centro da mesa.",sec:[
-  ["Carnes bovinas",["Rocambole de carne moída","Carne ao vinho na panela de pressão","Maminha assada no sal grosso","Picanha na manteiga","Filé mignon ao forno prático","Costela assada no forno"]],
-  ["Suínos e assados",["Lombo recheado (Porchetta)","Tender ao molho de laranja","Panceta pururuca","Pernil assado","Tender com mel e laranja","Tender bolinha","Pernil ao molho de maçã","Rocambole de carne moída suína"]],
-  ["Aves de Natal",["Peru de Natal","Lasanha de frango com queijo","Ave natalina com manteiga de ervas","Frango recheado","Chester assado","Peru de Natal temperado"]],
-  ["Peixes e bacalhau",["Tilápia assada com creme de cebola","Bacalhau com batatas","Suflê de bacalhau","Filé de peixe no forno fácil"]],
-  ["Especialidades",["Salpicão de frango","Salpicão de Natal especial","Risoto de tomate seco e rúcula"]]]},
- {titulo:"Ceia: 34 Sobremesas de Natal",capa:"s34-capa.c392d723.webp",valor:"27,90",desc:"Pavês, rabanadas, pudins, tortas e panetones para fechar a ceia.",sec:[
-  ["Sobremesas de travessa e clássicos gelados",["Sobremesa moça gelada","Pavê tradicional","Marido gelado","Bombom de morango na travessa com leite Ninho","Gelatina colorida simples","Flan de morango","Manjar de coco","Sobremesa de Natal na travessa","Sobremesa Sensação fácil","Pavê de pêssego com bolacha maisena","Escondidinho de uva"]],
-  ["Rabanadas especiais de Natal",["Rabanada de Natal","Rabanada na airfryer","Rabanada tradicional","Rabanadas recheadas com caramelo salgado","Rabanada recheada na air fryer","Rabanada assada","Rabanada de travessa"]],
-  ["Sobremesas cremosas e tortas",["Pudim de leite condensado","Banoffee (torta de banana)","Mousse de maracujá fácil e cremosa","Mousse de chocolate fácil"]],
-  ["Bolos, roscas e biscoitos natalinos",["Bolo de reis","Rosca natalina","Biscoito de gengibre de Natal","Bolotone tradicional","Bolo natalino","Bolacha de Natal"]],
-  ["Panetones e chocotones especiais",["Panetone de pistache","Pavê de panetone simples","Chocotone bites","Pavê de chocotone simples","Bolo de chocotone","Panetone recheado"]]]},
- {titulo:"Ceia: 24 Acompanhamentos",capa:"a24-capa.2fc5a242.webp",valor:"27,00",desc:"Arroz, farofas, saladas, salpicões e purês para completar a mesa.",sec:[
-  ["Clássicos da ceia",["Macarronese","Batata gratinada","Salada de repolho com manga","Farofa de Natal","Salada tropical natalina","Arroz de forno com frango fácil","Coleslaw","Patê de abacaxi com bacon","Lagarto ao vinagrete","Salada de bacalhau simples","Arroz com lentilha e cebolas douradas","Salpicão de frango"]],
-  ["Mais opções para a mesa",["Arroz de Natal fácil","Salada de maionese","Farofa de Natal simples","Salpicão de Natal simples","Salpicão de Natal para ceia","Farofa úmida de Natal","Tabule árabe","Arroz de alho-poró","Salada de grão-de-bico com bacalhau","Purê de batata fácil","Arroz natalino","Caponata de legumes"]]],start:[1,13]}
-];
-
-function openModal(b){
-  let n=0;
-  const m=document.createElement("div"); m.className="modal";
-  m.innerHTML=`<div class="sheet" role="dialog" aria-modal="true">
-    <div class="sheet-head"><img src="${IMG+b.capa}" alt=""><h3>${b.titulo}<small>${b.sec.reduce((t,x)=>t+x[1].length,0)} receitas · ${b.sec.length} capítulos</small></h3><button class="close" aria-label="Fechar">✕</button></div>
-    <div class="sheet-body">${b.sec.map((x,k)=>`<h4>${x[0]}</h4><ol start="${b.start?b.start[k]:1}">${x[1].map(r=>`<li>${r}</li>`).join("")}</ol>`).join("")}</div></div>`;
-  const close=()=>{sfx.click();m.remove();document.body.style.overflow="";};
-  m.querySelector(".close").onclick=close;
-  m.onclick=e=>{if(e.target===m)close();};
-  document.body.style.overflow="hidden";
-  document.body.appendChild(m);
-}
-
-/* ============ RASTREAMENTO (Meta Pixel + Clarity) ============ */
-function track(type,name,params){
-  try{ if(window.fbq) fbq(type,name,params||{}); }catch(e){}
-  try{ if(window.clarity) clarity("event",name); }catch(e){}
-}
-
-/* ============ SOM ============ */
-let ac;
-function audio(){ if(!ac){ try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){} } if(ac&&ac.state==="suspended")ac.resume(); return ac;}
-function tone(freq,dur,type="sine",vol=.18,delay=0){
-  const a=audio(); if(!a) return;
-  const t=a.currentTime+delay, o=a.createOscillator(), g=a.createGain();
-  o.type=type; o.frequency.setValueAtTime(freq,t); o.frequency.exponentialRampToValueAtTime(freq*1.5,t+dur*.6);
-  g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.01); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-  o.connect(g).connect(a.destination); o.start(t); o.stop(t+dur+.02);
-}
-const sfx = {
-  click(){ tone(660,.09,"triangle",.2); if(navigator.vibrate) navigator.vibrate(12); },
-  start(){ tone(523,.12,"triangle",.18); tone(784,.16,"triangle",.18,.08); },
-  done(){ [523,659,784,1047].forEach((f,i)=>tone(f,.22,"triangle",.16,i*.1)); }, // sininho
-  tick(){ tone(1200,.04,"sine",.06); }
+/* =========================================================
+   CONFIGURAÇÃO
+   ========================================================= */
+const CONFIG = {
+  produto: "Ceia Econômica de Natal",
+  preco: "29,90",
+  precoDe: "197",
+  checkoutUrl: "https://pay.wiapy.com/X79lQo-CNcrL",
+  garantiaDias: 7,
 };
 
-/* ============ ESTADO ============ */
-const state={i:-1,answers:{},history:[]};
-const main=document.getElementById("main");
-const back=document.getElementById("back");
+/* =========================================================
+   ESPAÇOS DE IMAGEM
+   Salve a imagem na pasta img/ com o nome indicado e ela
+   aparece sozinha no lugar do quadro tracejado.
+   ========================================================= */
+const slot = (arquivo, proporcao, descricao, extra = "") =>
+  `<div class="slot" style="aspect-ratio:${proporcao}" ${extra}>
+     <img src="img/${arquivo}" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+     <div class="slot__ph"><b>📷 img/${arquivo}</b><span>${descricao}</span><small>Formato ${proporcao.replace(/\s/g,"")}</small></div>
+   </div>`;
 
-function setProgress(){
-  const p=document.getElementById("progress");
-  if(state.i<0||state.i>=Q.length){p.classList.remove("show");return;}
-  p.classList.add("show");
-  const q=Q[state.i];
-  const done=Q.slice(0,state.i).filter(x=>x.type!=="info").length;
-  document.getElementById("phaseName").textContent=PHASES[q.phase];
-  document.getElementById("stepCount").textContent=q.type==="info"?"":Math.min(done+1,TOTAL)+"/"+TOTAL;
-  document.getElementById("barFill").style.width=(done/TOTAL*100+3)+"%";
+/* =========================================================
+   SOM DOS BOTÕES
+   ========================================================= */
+let ac;
+function tone(f, d, type = "triangle", v = .18, delay = 0) {
+  try {
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === "suspended") ac.resume();
+    const t = ac.currentTime + delay, o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 1.5, t + d * .6);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(v, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(g).connect(ac.destination); o.start(t); o.stop(t + d + .02);
+  } catch (e) {}
+}
+const sfx = {
+  click() { tone(660, .09); if (navigator.vibrate) navigator.vibrate(12); },
+  start() { tone(523, .12); tone(784, .16, "triangle", .18, .08); },
+  done() { [523, 659, 784, 1047].forEach((f, i) => tone(f, .22, "triangle", .16, i * .1)); },
+  tick() { tone(1200, .04, "sine", .06); },
+};
+
+/* =========================================================
+   RASTREAMENTO (Meta Pixel + Clarity)
+   ========================================================= */
+function track(name, params, custom) {
+  try { if (window.fbq) fbq(custom ? "trackCustom" : "track", name, params || {}); } catch (e) {}
+  try { if (window.clarity) clarity("event", name); } catch (e) {}
+}
+function withUTM(url) { const s = location.search; return s ? url + (url.includes("?") ? "&" : "?") + s.slice(1) : url; }
+
+/* =========================================================
+   TEXTOS DO DIAGNÓSTICO (usam as respostas)
+   ========================================================= */
+const DIAG = {
+  "cardapio": {
+    "Vou decidindo na hora, no mercado": "Você decide o cardápio no mercado, e é aí que o carrinho enche de coisa que você nem ia usar.",
+    "Procuro receitas na internet": "As receitas da internet pedem ingredientes que você não tem, e cada uma vira uma compra nova.",
+    "Faço sempre as mesmas receitas": "Repetir as mesmas receitas faz você comprar tudo de novo, mesmo tendo muita coisa em casa.",
+    "Fico perdida, sem saber o que fazer": "Sem saber o que fazer, você acaba comprando de tudo um pouco “pra garantir”.",
+  },
+  "lista": {
+    "Compro tudo o que a receita pede": "Você compra tudo o que a receita pede, sem olhar o que já está na sua despensa.",
+    "Vou pelo que vejo no mercado": "Comprar pelo que aparece no mercado é o caminho mais rápido pra estourar o orçamento.",
+    "Faço lista, mas esqueço o que já tenho": "Sua lista ignora o que já está na geladeira, e você paga duas vezes pelo mesmo ingrediente.",
+    "Confiro a despensa, mas compro a mais": "Você até confere a despensa, mas ainda compra a mais “por garantia”.",
+    "Não faço lista": "Sem lista, cada ida ao mercado vira um gasto sem controle.",
+  },
+  "despensa": {
+    "Fica esquecido e acaba vencendo": "O que está na despensa fica esquecido e vence, e isso é dinheiro indo pro lixo.",
+    "Compro de novo sem saber que já tinha": "Você compra de novo o que já tinha em casa, sem perceber.",
+    "Até lembro, mas não sei o que fazer com aquilo": "Você tem os ingredientes, mas falta saber quais receitas dá pra fazer com eles.",
+    "Sobra muita coisa depois do Natal": "Depois do Natal sobra muita coisa, sinal de que a compra foi maior do que precisava.",
+    "Uso bem, mas quero aproveitar ainda mais": "Você já aproveita bem o que tem. Com as receitas certas, dá pra economizar ainda mais.",
+  },
+};
+const RISCO = {
+  "Sim, todo ano estoura": { nivel: "Alto", pct: 88 },
+  "Sim, principalmente com tudo mais caro": { nivel: "Alto", pct: 81 },
+  "Às vezes fico na dúvida se precisava gastar tanto": { nivel: "Médio", pct: 64 },
+  "Ainda não, mas quero evitar este ano": { nivel: "Moderado", pct: 47 },
+};
+const TEMPO = {
+  "Algumas horas": "Algumas horas pensando no cardápio e nas compras",
+  "Dias pensando nisso": "Dias pensando no cardápio e nas compras",
+  "Semanas, desde o começo de dezembro": "Semanas preocupada com a ceia",
+  "Deixo pra última hora e corro no dia 23": "Deixa pra última hora e corre no dia 23",
+};
+
+/* =========================================================
+   ÍCONES / BLOCOS REUTILIZADOS
+   ========================================================= */
+const okIc = bad => `<span class="ok${bad ? " ok--bad" : ""}"><svg viewBox="0 0 24 24"><path d="${bad ? "M7 7l10 10M17 7 7 17" : "m6 12.5 4 4 8-9"}"/></svg></span>`;
+const TOTAL_Q = 8;
+const topBar = n => `
+  <header class="q__top">
+    <button class="q__back" type="button" data-back aria-label="Voltar"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="q__progress"><span style="width:${(n / TOTAL_Q) * 100}%"></span></div>
+    <span class="q__count">${n}/${TOTAL_Q}</span>
+  </header>`;
+const CORES = ["c-red", "c-green", "c-gold", "c-blue", "c-purple"];
+
+/* ---------- Mockup animado do app (HTML, sem imagem) ---------- */
+const ING = ["Arroz", "Frango", "Batata", "Creme de leite", "Milho", "Maionese", "Pão", "Leite", "Ovos", "Uva-passa"];
+const REC = [
+  ["chester.webp", "Frango assado de Natal"],
+  ["bacalhau.webp", "Arroz natalino"],
+  ["rabanada.webp", "Rabanada tradicional"],
+  ["pave.webp", "Pavê de Natal"],
+];
+function phone(passo, small) {
+  const cls = small ? "phone phone--sm" : "phone";
+  if (passo === 3) {
+    return `<div class="${cls}"><div class="scr">
+      <div class="scr__bar">🎄 Receita</div>
+      <div class="scr__body">
+        <div class="rec__img"><img src="img/rabanada.webp" alt=""></div>
+        <div class="rec__t">Rabanada tradicional</div>
+        <div class="scr__lbl">Ingredientes: pão, leite, ovos, açúcar, canela</div>
+        <ol class="steps-mini" data-steps>
+          <li>Corte o pão em fatias</li><li>Molhe no leite adoçado</li><li>Passe nos ovos batidos</li><li>Frite e passe no açúcar com canela</li>
+        </ol>
+      </div></div></div>`;
+  }
+  return `<div class="${cls}"><div class="scr">
+    <div class="scr__bar">🎄 Ceia Econômica de Natal</div>
+    <div class="scr__body">
+      <div class="scr__lbl">O que você tem em casa?</div>
+      <div class="chipz" data-chips>${ING.map(i => `<i>${i}</i>`).join("")}</div>
+      <div class="scr__btn" data-go>Buscar receitas</div>
+    </div>
+    <div class="scr__search" data-search><div class="spinner"></div><p>Cruzando seus ingredientes com as receitas de Natal…</p></div>
+    <div class="scr__res" data-res><div class="scr__body">
+      <div class="res__top">✓ Receitas com o que você tem</div>
+      ${REC.map(([f, t]) => `<div class="rc"><img src="img/${f}" alt=""><span><b>${t}</b><small>Você já tem os ingredientes</small></span></div>`).join("")}
+    </div></div>
+  </div></div>`;
+}
+/* passo 0 = ciclo completo · 1 = colocando ingredientes · 2 = buscando e mostrando · 3 = passo a passo */
+function mountDemo(root, passo) {
+  if (!root) return () => {};
+  let alive = true, timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(() => alive && fn(), ms));
+  const run = () => {
+    timers.forEach(clearTimeout); timers = [];
+    const chips = [...root.querySelectorAll("[data-chips] i")], go = root.querySelector("[data-go]"),
+      se = root.querySelector("[data-search]"), res = root.querySelector("[data-res]"),
+      cards = [...root.querySelectorAll(".rc")], steps = [...root.querySelectorAll("[data-steps] li")];
+    if (passo === 3) {
+      steps.forEach(s => s.classList.remove("on"));
+      steps.forEach((s, i) => at(500 + i * 650, () => s.classList.add("on")));
+      at(500 + steps.length * 650 + 2200, run);
+      return;
+    }
+    chips.forEach(c => c.classList.remove("on")); se.classList.remove("on"); res.classList.remove("on"); cards.forEach(c => c.classList.remove("on"));
+    if (passo === 2) { chips.forEach(c => c.classList.add("on")); }
+    let t = 300;
+    if (passo !== 2) chips.forEach((c, i) => at(t + i * 260, () => c.classList.add("on")));
+    t += passo === 2 ? 400 : chips.length * 260 + 300;
+    if (passo === 1) { at(t + 2200, run); return; }
+    at(t, () => go.classList.add("tap")); at(t + 220, () => go.classList.remove("tap"));
+    at(t + 300, () => se.classList.add("on"));
+    at(t + 1900, () => { se.classList.remove("on"); res.classList.add("on"); });
+    cards.forEach((c, i) => at(t + 2100 + i * 280, () => c.classList.add("on")));
+    at(t + 2100 + cards.length * 280 + 2600, run);
+  };
+  run();
+  return () => { alive = false; timers.forEach(clearTimeout); };
 }
 
-function go(i,push=true){
-  if(push) state.history.push(state.i);
-  state.i=i; window.scrollTo({top:0,behavior:"smooth"});
-  back.classList.toggle("show",i>=0&&i<Q.length);
-  setProgress();
-  if(i<0) return renderIntro();
-  if(i>=Q.length) return renderLoading();
-  const q=Q[i];
-  if(q.type==="info") return renderInfo();
-  renderQuestion(q);
+/* =========================================================
+   PERGUNTAS
+   ========================================================= */
+let qCount = 0;
+function question({ id, title, subtitle, options, longa, imagem }) {
+  const n = ++qCount;
+  return {
+    id,
+    render: () => `
+      <section class="q">
+        ${topBar(n)}
+        <h2 class="q__title reveal${longa ? " q__title--long" : ""}">${title}</h2>
+        ${subtitle ? `<p class="q__sub reveal">${subtitle}</p>` : ""}
+        ${imagem ? `<div class="q-img reveal"><img src="${imagem.src}" alt="${imagem.alt}"></div>` : ""}
+        <ul class="q__options" role="list">
+          ${options.map((o, i) => `
+            <li class="reveal" style="animation-delay:${.1 + i * .06}s">
+              <button class="opt ${CORES[i % CORES.length]}${state.answers[id] === o.label ? " is-picked" : ""}" type="button" data-option="${i}">
+                <span class="opt__emoji">${o.emoji}</span><span class="opt__text"><b>${o.label}</b></span><span class="opt__check"></span>
+              </button>
+            </li>`).join("")}
+        </ul>
+      </section>`,
+    mount: el => {
+      let locked = false;
+      el.querySelectorAll("[data-option]").forEach(btn => btn.addEventListener("click", () => {
+        if (locked) return; locked = true; sfx.click();
+        el.querySelectorAll(".opt").forEach(b => b.classList.remove("is-picked"));
+        btn.classList.add("is-picked");
+        const picked = options[+btn.dataset.option];
+        state.answers[id] = picked.label;
+        track("QuizAnswer", { question: id, answer: picked.label }, true);
+        setTimeout(next, 380);
+      }));
+    },
+  };
 }
 
-back.onclick=()=>{ sfx.click(); const prev=state.history.pop(); if(prev!==undefined) go(prev,false); };
+const STEPS = [
+  /* 0 · CAPA */
+  {
+    id: "capa",
+    render: () => `
+      <section class="cover">
+        <h1 class="reveal">Quem monta a ceia <span class="hl">comprando tudo do zero</span> está <span class="warn">jogando dinheiro fora</span></h1>
+        <p class="lede reveal">Descubra como fazer uma ceia de Natal completa com o que você <strong class="u">já tem em casa</strong> e gastar muito&nbsp;menos.</p>
+        <div class="ba reveal">
+          <figure class="ba__item">${slot("antes.webp", "3 / 4", "ANTES: mulher preocupada no mercado, carrinho cheio e cupom fiscal comprido na mão")}<figcaption>Antes</figcaption></figure>
+          <figure class="ba__item ba__item--after">${slot("depois.webp", "3 / 4", "DEPOIS: a mesma mulher sorrindo na cozinha, celular com as receitas do app e ingredientes de casa na bancada")}<figcaption>Depois</figcaption></figure>
+        </div>
+        <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Fazer teste gratuito</button></div>
+      </section>`,
+    mount: () => track("ViewContent", { content_name: "quiz_capa" }),
+    onNext: () => { sfx.start(); track("QuizStart", {}, true); },
+  },
 
-/* ============ TELAS ============ */
-function renderIntro(){
-  main.innerHTML=`<section class="screen hero">
-    <span class="tag">🎁 Resultado gratuito · 1 minuto</span>
-    <div class="fade-img hero-img"><img src="img/familia-ceia.webp" alt="Família reunida na ceia de Natal"></div>
-    <h1>Descubra como montar uma <em>ceia de Natal completa</em> gastando pouco</h1>
-    <p class="sub">Responda algumas perguntas rápidas e receba um plano de ceia feito para o tamanho da sua família e para o seu bolso.</p>
-    <div class="chips"><span class="chip">🍗 Cardápio</span><span class="chip">🛒 Lista de compras</span><span class="chip">⏰ Cronograma</span></div>
-    <button class="btn red pulse" id="startBtn">Começar o quiz →</button>
-    <p class="fine">Sem cadastro · Resultado na hora</p>
-  </section>`;
-  document.getElementById("startBtn").onclick=()=>{ sfx.start(); track("trackCustom","QuizStart"); go(0); };
-}
+  /* 1 · PERFIL */
+  question({ id: "tempo-ceia", title: "Há quanto tempo você prepara a ceia de Natal da família?",
+    options: [{ emoji: "🟢", label: "Este é o primeiro ano" }, { emoji: "🟡", label: "1 a 3 anos" }, { emoji: "🟠", label: "3 a 10 anos" }, { emoji: "🔴", label: "+10 anos" }] }),
 
-function renderQuestion(q){
-  const isGrid=q.type==="grid";
-  const items=q.opts.map((o,k)=> isGrid
-    ? `<button class="card" data-k="${k}">${o.img?`<img src="${(o.local?"img/":IMG)+o.img}" alt="${o.t}" loading="lazy">`:`<div class="ph">${o.e}</div>`}<span>${o.t}</span></button>`
-    : `<button class="opt" data-k="${k}"><span class="emo">${o.e}</span><span class="txt">${o.t}${o.d?`<small>${o.d}</small>`:""}</span></button>`
-  ).join("");
-  main.innerHTML=`<section class="screen">
-    <h2>${q.q}</h2>${q.sub?`<p class="sub">${q.sub}</p>`:`<div style="height:12px"></div>`}${q.img?`<div class="fade-img q-img"><img src="${q.img}" alt="${q.imgAlt||""}"></div>`:""}
-    <div class="${isGrid?"grid":"opts"}">${items}</div>
-  </section>`;
-  main.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{
-    if(main.dataset.lock) return; main.dataset.lock=1;
-    sfx.click(); b.classList.add("sel");
-    state.answers[q.id]=q.opts[+b.dataset.k].t;
-    setTimeout(()=>{ delete main.dataset.lock; go(state.i+1); },380);
-  });
-}
+  /* 2 · MÉTODO ATUAL */
+  question({ id: "cardapio", title: "Como você decide o cardápio da ceia hoje? 📋",
+    options: [{ emoji: "🤦‍♀️", label: "Vou decidindo na hora, no mercado" }, { emoji: "📱", label: "Procuro receitas na internet" }, { emoji: "📝", label: "Faço sempre as mesmas receitas" }, { emoji: "🫤", label: "Fico perdida, sem saber o que fazer" }] }),
 
-function renderInfo(){
-  main.innerHTML=`<section class="screen">
-    <span class="tag">📌 Importante</span>
-    <h2>Você não está sozinha nessa</h2>
-    <p class="sub">Pelas suas respostas, o problema não é falta de dinheiro: é falta de <b>planejamento</b>.</p>
-    <div class="info">
-      <p>A maioria das pessoas gasta demais no Natal porque <b>compra sem lista</b>, <b>erra nas quantidades</b> e <b>deixa tudo para a última hora</b>, quando os preços já subiram.</p>
-      <div class="compare">
-        <div class="bad"><strong>❌ Sem plano</strong>Compras por impulso, comida sobrando, correria no dia 24</div>
-        <div class="good"><strong>✅ Com plano</strong>Lista certa, quantidade por pessoa, tudo pronto no horário</div>
+  /* 3 · BASE DA COMPRA */
+  question({ id: "lista", title: "Na hora de fazer as compras da ceia, como você monta a lista?",
+    options: [{ emoji: "😅", label: "Compro tudo o que a receita pede" }, { emoji: "👀", label: "Vou pelo que vejo no mercado" }, { emoji: "🛒", label: "Faço lista, mas esqueço o que já tenho" }, { emoji: "📋", label: "Confiro a despensa, mas compro a mais" }, { emoji: "🤔", label: "Não faço lista" }] }),
+
+  /* 4 · DOR CENTRAL (nível da barra de risco) */
+  question({ id: "gastou", title: "Já gastou muito mais do que planejava na ceia de Natal?",
+    imagem: { src: "img/noticia-oglobo.webp", alt: "Notícia: Ceia de Natal fica mais cara" },
+    options: [{ emoji: "😬", label: "Sim, todo ano estoura" }, { emoji: "😰", label: "Sim, principalmente com tudo mais caro" }, { emoji: "🤔", label: "Às vezes fico na dúvida se precisava gastar tanto" }, { emoji: "🛡️", label: "Ainda não, mas quero evitar este ano" }] }),
+
+  /* 5 · DOR COM O QUE JÁ TEM EM CASA */
+  question({ id: "despensa", title: "O que mais acontece com o que você já tem na despensa e na geladeira?",
+    options: [{ emoji: "😪", label: "Fica esquecido e acaba vencendo" }, { emoji: "❌", label: "Compro de novo sem saber que já tinha" }, { emoji: "😟", label: "Até lembro, mas não sei o que fazer com aquilo" }, { emoji: "👻", label: "Sobra muita coisa depois do Natal" }, { emoji: "✅", label: "Uso bem, mas quero aproveitar ainda mais" }] }),
+
+  /* 6 · EDUCAÇÃO (1ª aparição do produto) */
+  ((n = qCount) => ({
+    id: "comece-pelo-que-tem",
+    render: () => `
+      <section class="q">
+        ${topBar(n)}
+        <h2 class="q__title reveal">Sua ceia pode começar pelo que você <span class="hl">já tem em casa</span>.</h2>
+        <figure class="shot-wrap reveal">${phone(0)}</figure>
+        <div class="checks reveal">
+          <p class="checks__title">Assim, tudo fica mais fácil:</p>
+          <ul role="list">
+            <li>${okIc()}<span><b>Receitas com o que você já tem</b></span></li>
+            <li>${okIc()}<span><b>Ingredientes e passo a passo</b></span></li>
+            <li>${okIc()}<span><b>Bem menos coisa pra comprar</b></span></li>
+          </ul>
+        </div>
+        <p class="punch reveal">Você aproveita o que tem em casa<br><span class="punch__hl">e gasta muito menos!</span></p>
+        <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Continuar</button></div>
+      </section>`,
+    mount: el => mountDemo(el.querySelector(".shot-wrap"), 0),
+  }))(),
+
+  /* 7 · TEMPO */
+  question({ id: "tempo", title: "Quanto tempo você gasta pensando no cardápio e nas compras da ceia? ⏱️",
+    options: [{ emoji: "🕐", label: "Algumas horas" }, { emoji: "🌙", label: "Dias pensando nisso" }, { emoji: "📆", label: "Semanas, desde o começo de dezembro" }, { emoji: "❌", label: "Deixo pra última hora e corro no dia 23" }] }),
+
+  /* 8 · O QUE ATRAPALHA */
+  question({ id: "atrapalha", title: "O que mais te atrapalha na hora de preparar a ceia?",
+    options: [{ emoji: "😪", label: "Não saber o que fazer com o que tenho" }, { emoji: "😬", label: "Gastar demais no mercado" }, { emoji: "📲", label: "Achar receitas fáceis e que dão certo" }, { emoji: "⚡", label: "Já me organizo, mas queria simplificar" }] }),
+
+  /* 9 · COMPROMISSO (micro-sim) */
+  question({ id: "usaria-app", longa: true,
+    title: `Se existisse um aplicativo <span class="hl">MUITO FÁCIL</span> que mostra as receitas de Natal que você pode fazer só com o que já tem em casa, você usaria? 🎄🍗`,
+    options: [{ emoji: "✅", label: "Com certeza usaria" }, { emoji: "🤔", label: "Talvez" }, { emoji: "👊", label: "Tenho interesse" }] }),
+
+  /* 10 · PERDENDO DINHEIRO */
+  ((n = qCount) => ({
+    id: "perdendo-dinheiro",
+    render: () => `
+      <section class="q">
+        ${topBar(n)}
+        <h2 class="q__title reveal">Você pode estar <span class="warn">gastando dinheiro à toa</span> neste Natal...</h2>
+        <div class="note note--alert reveal"><b>Veja só...</b><p>Você provavelmente vai comprar coisas que já tem em casa, e isso pesa no orçamento de dezembro.</p></div>
+        <div class="checks reveal">
+          <p class="checks__title">Muita gente:</p>
+          <ul role="list">
+            <li>${okIc(true)}<span><b>Compra a ceia inteira do zero</b></span></li>
+            <li>${okIc(true)}<span><b>Esquece o que já tem na despensa</b></span></li>
+            <li>${okIc(true)}<span><b>Deixa ingrediente vencer na geladeira</b></span></li>
+            <li>${okIc(true)}<span><b>Compra a mais “por garantia”</b></span></li>
+            <li>${okIc(true)}<span><b>Gasta muito mais do que precisava</b></span></li>
+          </ul>
+        </div>
+        <div class="note note--good reveal"><b>Agora existe um jeito fácil</b><p>Um aplicativo que encontra receitas de Natal com os ingredientes que você já tem em casa, em poucos segundos.</p></div>
+        <figure class="photo reveal">${slot("mostrando.webp", "3 / 4", "Mulher sorrindo na cozinha mostrando no celular as receitas que o app encontrou, com ingredientes de casa na bancada")}</figure>
+        <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Quero usar o aplicativo</button></div>
+      </section>`,
+  }))(),
+
+  /* 11 · DIAGNÓSTICO */
+  {
+    id: "diagnostico",
+    render: () => {
+      const a = state.answers;
+      const steps = [
+        ["Analisando como você monta o cardápio", a["cardapio"]],
+        ["Vendo como você faz a lista de compras", a["lista"]],
+        ["Verificando o que acontece com o que você tem em casa", a["despensa"]],
+        ["Medindo o tempo que você gasta com a ceia", a["tempo"]],
+        ["Preparando o aplicativo pra sua ceia", null],
+      ];
+      const risco = RISCO[a["gastou"]] || { nivel: "Alto", pct: 78 };
+      const achados = [DIAG.cardapio[a.cardapio], DIAG.lista[a.lista], DIAG.despensa[a.despensa]].filter(Boolean);
+      const tempo = TEMPO[a.tempo];
+      return `
+      <section class="diag">
+        <div data-run>
+          <div class="ring" data-ring style="--p:0"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle class="ring__bar" cx="60" cy="60" r="52" pathLength="100"/></svg><span class="ring__n" data-pct>0%</span></div>
+          <h2 class="q__title">Analisando suas respostas...</h2>
+          <ul class="diag__steps" role="list">
+            ${steps.map(([t, r]) => `<li><span class="diag__ic"><i class="spin"></i><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></span><span><b>${t}</b>${r ? `<small>Você respondeu: “${r}”</small>` : ""}</span></li>`).join("")}
+          </ul>
+        </div>
+        <div class="diag__res" data-res hidden>
+          <p class="diag__tag">Seu diagnóstico</p>
+          <h2 class="q__title">Sua ceia pode estar <span class="warn">custando bem mais do que precisa</span></h2>
+          <div class="risk">
+            <div class="risk__top"><span>Risco de gastar demais na ceia</span><b class="risk__lvl risk__lvl--${risco.nivel.toLowerCase()}">${risco.nivel}</b></div>
+            <div class="risk__bar"><i style="--w:${risco.pct}%"></i></div>
+            ${tempo ? `<p class="risk__time">⏱️ ${tempo}</p>` : ""}
+          </div>
+          <div class="finds">
+            <p class="checks__title">O que encontramos:</p>
+            <ul role="list">${achados.map(f => `<li><span class="finds__ic">⚠️</span><span>${f}</span></li>`).join("")}</ul>
+          </div>
+          <div class="note note--good"><b>A boa notícia</b><p>Tudo isso se resolve começando pelo que você já tem: o app encontra as receitas de Natal que dá pra fazer com os ingredientes da sua despensa e da sua geladeira, com o passo a passo pra preparar no dia 24.</p></div>
+          <button class="btn btn--pulse" type="button" data-next>Ver como resolver</button>
+        </div>
+      </section>`;
+    },
+    mount: el => {
+      const run = el.querySelector("[data-run]"), resEl = el.querySelector("[data-res]");
+      if (state.answers.__diagVisto) { run.hidden = true; resEl.hidden = false; resEl.classList.add("is-in"); return; }
+      const ring = el.querySelector("[data-ring]"), pct = el.querySelector("[data-pct]"), items = [...el.querySelectorAll(".diag__steps li")];
+      const TOTAL = 6200, per = TOTAL / items.length; let raf, t0, last = -1, done = false;
+      const tick = now => {
+        if (!t0) t0 = now;
+        const p = Math.min(1, (now - t0) / TOTAL), shown = Math.round(p * 100);
+        ring.style.setProperty("--p", shown); pct.textContent = shown + "%";
+        const idx = Math.min(items.length - 1, Math.floor((now - t0) / per));
+        if (idx !== last) { if (last >= 0) sfx.tick(); last = idx; }
+        items.forEach((li, i) => { li.classList.toggle("is-done", i < idx || p === 1); li.classList.toggle("is-active", i === idx && p < 1); });
+        if (p < 1) raf = requestAnimationFrame(tick);
+        else if (!done) { done = true; sfx.done(); setTimeout(show, 450); }
+      };
+      raf = requestAnimationFrame(tick);
+      function show() {
+        run.hidden = true; resEl.hidden = false; window.scrollTo(0, 0);
+        requestAnimationFrame(() => requestAnimationFrame(() => resEl.classList.add("is-in")));
+        state.answers.__diagVisto = true;
+        track("Lead", { content_name: "quiz_diagnostico" });
+      }
+      return () => cancelAnimationFrame(raf);
+    },
+  },
+
+  /* 12 · COMO USAR */
+  ((n = qCount) => ({
+    id: "como-usar",
+    render: () => `
+      <section class="q">
+        ${topBar(n)}
+        <h2 class="q__title reveal">Veja como é fácil usar o <span class="hl">Ceia Econômica de Natal</span></h2>
+        <div class="how">
+          ${[
+            ["Coloque o que você tem em casa", "Marque os ingredientes da sua despensa e da sua geladeira.", "c-red"],
+            ["O app busca as receitas", "Ele cruza os seus ingredientes com as receitas de Natal e mostra o que dá pra fazer.", "c-gold"],
+            ["Faça a receita no dia 24", "Cada receita vem com todos os ingredientes e o passo a passo.", "c-green"],
+          ].map(([t, d, c], i) => `
+            <article class="how__step ${c} reveal" style="animation-delay:${.1 + i * .1}s">
+              <span class="how__n">${i + 1}</span>
+              <div class="how__body"><small class="how__eyebrow">Passo ${i + 1} de 3</small><h3>${t}</h3><p>${d}</p></div>
+              <div data-demo="${i + 1}">${phone(i + 1, true)}</div>
+            </article>`).join("")}
+        </div>
+        <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Quero o aplicativo</button></div>
+      </section>`,
+    mount: el => { const s = [...el.querySelectorAll("[data-demo]")].map(d => mountDemo(d, +d.dataset.demo)); return () => s.forEach(f => f()); },
+  }))(),
+
+  /* → PÁGINA DE VENDAS */
+  { id: "oferta", render: () => salesPage(), mount: el => mountSales(el) },
+];
+
+/* =========================================================
+   PÁGINA DE VENDAS (segue o "Mapa das seções")
+   ========================================================= */
+function salesPage() {
+  const num = v => Number(String(v).replace(",", ".")) || 0;
+  const valor = num(CONFIG.preco), de = num(CONFIG.precoDe);
+  const desconto = Math.round((1 - valor / de) * 100);
+  const economia = (de - valor).toFixed(2).replace(".", ",");
+  const cta = txt => `<a class="btn btn--pulse" href="${withUTM(CONFIG.checkoutUrl)}" data-checkout>${txt}</a>`;
+  const lista = (tipo, itens) => `<ul class="lista lista--${tipo}" role="list">${itens.map(t => `<li><span>${t}</span></li>`).join("")}</ul>`;
+  const foto = (arquivo, desc, selo = "") => `<figure class="foto">${slot(arquivo, "16 / 9", desc)}${selo ? `<figcaption class="foto__selo">${selo}</figcaption>` : ""}</figure>`;
+  const selo = `<p class="zap-selo"><span class="zap-selo__ic">⚡</span>Acesso na hora · direto no seu celular</p>`;
+  const logo = `<div class="logo">Ceia<span>Econômica</span><small>de Natal</small></div>`;
+  const wa = (status, msgs) => `<div class="wa"><div class="wa__head"><span class="wa__av">👨‍👩‍👧</span><span><b>Família 🎄</b><small>${status}</small></span></div><div class="wa__body">${msgs.map(m => m.dia ? `<span class="wa__dia">${m.dia}</span>` : `<p class="msg msg--${m.de}">${m.nome ? `<span class="msg__n" style="color:${m.cor}">${m.nome}</span>` : ""}${m.txt}<small>${m.hora}</small></p>`).join("")}</div></div>`;
+
+  return `
+  <section class="pv">
+
+    <!-- 1 · HERO: promessa, mecanismo e prova visual -->
+    <div class="sec sec--claro">
+      <div class="pv__bar"><button class="q__back" type="button" data-back aria-label="Voltar"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>${logo}<span></span></div>
+      <h1 class="pv__h1">Faça uma <span class="pv-red">ceia de Natal completa com o que você já tem em casa</span> e gaste <mark class="amb">muito&nbsp;menos</mark></h1>
+      ${selo}
+      <div class="topo">
+        ${slot("topo.webp", "16 / 10", "Mulher sorrindo segurando o celular com o app aberto, mesa de Natal farta ao fundo (deixe o lado direito livre: o cartão do app fica por cima)")}
+        <div class="orc">
+          <div class="orc__top">🎄 Ceia Econômica de Natal</div>
+          <div class="orc__corpo">
+            <p class="orc__lbl">Você tem em casa:</p>
+            <div class="orc__chips"><i>Arroz</i><i>Frango</i><i>Batata</i><i>Milho</i><i>Pão</i><i>Ovos</i></div>
+            <div class="orc__res"><span>Receitas encontradas</span><b>12</b></div>
+          </div>
+        </div>
       </div>
     </div>
-    <button class="btn" id="cont">Quero ver como funciona →</button>
+
+    <!-- 2 · 3 CARDS: benefícios + 1ª quebra de objeção -->
+    <div class="sec sec--branco" style="padding-top:44px">
+      <div class="card">
+        <div class="card__head"><span class="tile tile--red">🧺</span><h3>Receitas com o que você já tem</h3></div>
+        <p>Você só precisa colocar no app os ingredientes que estão na sua despensa e na sua geladeira.</p>
+        <p>Nada de comprar a ceia inteira do zero. Enquanto os outros enchem o carrinho, você já sabe o que dá pra fazer com o que tem.</p>
+      </div>
+      <div class="card card--escuro">
+        <div class="card__head"><span class="tile tile--verde">📋</span><h3>Passo a passo completo</h3></div>
+        <p>Cada receita vem com todos os ingredientes e o modo de preparo, do começo ao fim.</p>
+        <p>Mesmo quem não tem prática na cozinha consegue fazer e acertar no dia 24.</p>
+      </div>
+      <div class="card">
+        <div class="card__head"><span class="tile tile--ouro">🎄</span><h3>A ceia inteira em um lugar só</h3></div>
+        <ul class="chips" role="list">${["Pratos principais", "Aves", "Carnes", "Bacalhau", "Arroz natalino", "Farofas", "Saladas", "Salpicão", "Sobremesas", "Rabanada", "Pavê"].map(t => `<li>${t}</li>`).join("")}<li class="chips__mais">e muito mais</li></ul>
+        <p>Tudo pensado pra mesa de Natal, com o que você já tem em casa.</p>
+      </div>
+    </div>
+
+    <!-- 3 · 3 TELAS: prova de facilidade -->
+    <div class="sec sec--escuro">
+      <div class="telas__fones">
+        <div class="telas__item">${slot("app-ingredientes.webp", "9 / 19.5", "Print do app: tela onde ela coloca os ingredientes que tem em casa")}</div>
+        <div class="telas__item">${slot("app-buscando.webp", "9 / 19.5", "Print do app: tela buscando as receitas")}</div>
+        <div class="telas__item"><b class="telas__pronto">Pronto! ✓</b>${slot("app-receitas.webp", "9 / 19.5", "Print do app: lista de receitas encontradas ou uma receita com o passo a passo")}</div>
+        <span class="telas__seta telas__seta--1">Passo 1 ➜</span>
+        <span class="telas__seta telas__seta--2">Passo 2 ➜</span>
+      </div>
+      <p class="telas__leg">Coloque o que tem <i>→</i> O app busca <i>→</i> Receitas prontas</p>
+    </div>
+
+    <!-- 4 · ANTES x DEPOIS no WhatsApp: prova de resultado -->
+    <div class="sec sec--claro">
+      <div class="ad__rotulos"><p class="ad__selo ad__selo--antes">ANTES ✕</p><p class="ad__selo ad__selo--depois">DEPOIS ✓</p></div>
+      <div class="ad__par">
+        ${wa("Ana, Bia, Carlos, você", [
+          { dia: "22 de dezembro" },
+          { de: "ela", nome: "Bia", cor: "#c2185b", txt: "Mãe, o que vai ter na ceia? 😋", hora: "19:02" },
+          { de: "eu", txt: "Ainda não sei 😩 vou no mercado amanhã ver", hora: "21:40" },
+          { dia: "23 de dezembro" },
+          { de: "eu", txt: "Gastei uma fortuna e ainda falta coisa…", hora: "18:15" },
+          { de: "eu", txt: "E a geladeira tá cheia, mas não sei o que fazer com nada 😓", hora: "18:16" },
+        ])}
+        ${wa("Ana, Bia, Carlos, você", [
+          { dia: "24 de dezembro" },
+          { de: "eu", txt: "Gente, a ceia tá pronta! 🎄 Fiz quase tudo com o que já tinha em casa", hora: "20:30" },
+          { de: "ela", nome: "Bia", cor: "#c2185b", txt: "Mãe, que mesa linda 😍", hora: "20:31" },
+          { de: "ela", nome: "Carlos", cor: "#1565c0", txt: "Manda a receita da rabanada! 🤤", hora: "20:33" },
+          { de: "eu", txt: "E sobrou dinheiro pros presentes 🎁", hora: "20:34" },
+        ])}
+      </div>
+      <div class="ad__rotulos"><p class="ad__leg ad__leg--antes">Gastou e ainda se estressou. 😔</p><p class="ad__leg ad__leg--depois">Ceia farta gastando pouco. 🤝</p></div>
+      <p class="ad__faixa">A diferença entre estourar o orçamento e <span>fazer uma ceia farta</span></p>
+    </div>
+
+    <!-- 5 · SUA VIDA SEM -->
+    <div class="sec sec--sem">
+      <h2 class="tit">Seu Natal SEM O CEIA ECONÔMICA DE NATAL</h2>
+      ${lista("x", ["Compra a ceia inteira do zero", "Decide o cardápio dentro do mercado", "Esquece o que já tem na despensa", "Compra de novo o que já tinha", "Deixa ingrediente vencer na geladeira", "Não sabe o que fazer com o que tem", "Gasta muito mais do que planejou", "Corre pro mercado no dia 23", "Chega no dia 24 cansada e estressada"])}
+      ${foto("sem-app.webp", "Mulher cansada no mercado lotado, carrinho cheio e olhando o cupom fiscal comprido")}
+    </div>
+
+    <!-- 6 · SUA VIDA COM -->
+    <div class="sec sec--com">
+      <h2 class="tit">Seu Natal COM O CEIA ECONÔMICA DE NATAL</h2>
+      ${lista("ok", ["Usa o que já tem em casa", "Sabe na hora o que dá pra fazer", "Receitas de Natal com passo a passo", "Compra bem menos no mercado", "Nada vence esquecido na geladeira", "Cardápio resolvido em minutos", "Ceia farta sem estourar o orçamento", "Sobra dinheiro pros presentes", "Chega no dia 24 tranquila"])}
+      ${foto("com-app.webp", "Família feliz à mesa da ceia de Natal (pode usar a foto da capa antiga: img/familia-ceia.webp)")}
+    </div>
+
+    <!-- 7, 8, 9 · DIAGNÓSTICO: identificação, reenquadrar a causa, consequência emocional -->
+    <div class="sec sec--dor">
+      <h2 class="tit">Se você prepara a ceia, provavelmente já <mark class="mt">passou por isso…</mark></h2>
+      ${lista("seta lista--solta", ["Já gastou no mercado muito mais do que tinha planejado", "Já viu o preço do bacalhau e do pernil subir e o orçamento não acompanhar", "Já comprou ingrediente que já tinha em casa", "Já jogou fora coisa que venceu esquecida na geladeira", "Já abriu a despensa cheia e pensou “não tem nada pra fazer”", "Já passou o dia 24 inteiro na cozinha e ainda se estressou"])}
+      <p class="apoio" style="margin-top:22px">O problema não é falta de dinheiro…</p>
+      <h2 class="tit">O problema é não saber <mark class="mt">aproveitar o que você já tem</mark></h2>
+      <p class="rot rot--solta">Muita gente:</p>
+      ${lista("xq lista--solta", ["Compra tudo o que a receita pede", "Não olha a despensa antes de ir ao mercado", "Não sabe quais receitas dá pra fazer com o que tem", "Compra a mais “por garantia”", "Deixa ingrediente vencer"])}
+      <h2 class="tit" style="margin-top:20px">É por isso que você gasta muito e <mark class="mt">a ceia ainda dá trabalho</mark></h2>
+      ${foto("gasta-muito.webp", "Mulher cansada na cozinha bagunçada na véspera de Natal, com sacolas de mercado e a conta na mão")}
+    </div>
+
+    <!-- 10 · SOLUÇÃO: conheça o produto + 3 passos -->
+    <div class="sec sec--claro">
+      <div class="card">
+        <p class="apoio card__centro">Conheça o</p>
+        <div class="card__marca">${logo}</div>
+        <p>O aplicativo que encontra receitas de Natal com os ingredientes que você já tem em casa, com todos os ingredientes e o passo a passo.</p>
+        <p class="rot">Você só precisa:</p>
+        <ol class="passos" role="list">
+          <li><b>1</b><span>Colocar o que você tem em casa</span></li>
+          <li><b>2</b><span>Deixar o app buscar as receitas</span></li>
+          <li><b>3</b><span>Fazer a receita no dia 24</span></li>
+        </ol>
+        <p class="card__ok">✅ Simples assim</p>
+        ${foto("conheca.webp", "Duas mulheres (mãe e filha) olhando juntas as receitas no celular, na cozinha", "Feito pra quem prepara a ceia")}
+      </div>
+    </div>
+
+    <!-- 11 · O QUE ESSE APLICATIVO FAZ? -->
+    <div class="sec sec--branco">
+      <h2 class="tit">O que esse aplicativo faz?</h2>
+      <p class="apoio">Com o <span class="pv-red">Ceia Econômica de Natal</span> você consegue…</p>
+      ${lista("dupla lista--solta", ["Colocar os ingredientes que tem em casa", "Encontrar receitas com esses ingredientes", "Ver todos os ingredientes de cada receita", "Seguir o passo a passo do preparo", "Montar pratos principais de Natal", "Fazer acompanhamentos e saladas", "Preparar sobremesas natalinas", "Aproveitar o que está na geladeira", "Comprar bem menos no mercado", "Fazer uma ceia farta gastando pouco"])}
+      ${foto("consegue.webp", "Mulher na cozinha com o celular na mão e os pratos da ceia prontos na bancada")}
+
+      <!-- 12 · ELEVAR O VALOR PERCEBIDO -->
+      <div class="card card--verde" style="margin-top:22px">
+        <p class="apoio card__centro">Esse aplicativo não é só um livro de receitas.</p>
+        <h2 class="tit card__centro">Ele é pra você <mark class="mt">economizar de verdade</mark> no Natal.</h2>
+        <p class="rot">Com ele você pode:</p>
+        ${lista("seta2", ["Parar de comprar o que já tem em casa", "Parar de jogar comida fora", "Fazer uma ceia farta sem estourar o orçamento", "Ter o cardápio resolvido em minutos", "Sobrar dinheiro pros presentes", "Chegar no dia 24 tranquila"])}
+        ${foto("economizar.webp", "Mulher sorrindo guardando dinheiro na carteira ou embrulhando presentes, com a mesa de Natal ao fundo")}
+      </div>
+    </div>
+
+    <!-- 13 · VEJA COMO USAM (carrossel) -->
+    <div class="sec sec--claro">
+      <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
+      <div class="pv-carrossel" data-carrossel>
+        <div class="pv-carrossel__trilho">
+          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag">💡 Exemplo de uso</span></figure>`).join("")}
+        </div>
+        <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
+        <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
+      </div>
+      <div class="pv-carrossel__pontos">${[0, 1, 2].map(i => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>
+      <p class="pv-carrossel__nota">Exemplos ilustrativos de como o app é usado no dia a dia.</p>
+
+      <!-- 14 · PAGAMENTO ÚNICO -->
+      <div class="aviso">
+        <span class="aviso__tag">Pagamento único</span>
+        <p class="aviso__sem"><span>SEM <s>MENSALIDADE</s></span><span>SEM <s>TAXAS</s></span></p>
+        <h2 class="aviso__tit">Você paga <mark>UMA vez</mark> e o app é seu!</h2>
+        <p class="aviso__zap">⚡ Você recebe o acesso logo depois da compra</p>
+      </div>
+
+      <!-- 15 · VOCÊ VAI RECEBER -->
+      <h2 class="tit">Você vai receber <span class="verde">na hora</span>…</h2>
+      ${lista("ok lista--solta", ["Aplicativo Ceia Econômica de Natal", "Busca de receitas pelos ingredientes que você tem", "Receitas de Natal com ingredientes e passo a passo", "Pratos principais, acompanhamentos e sobremesas", "Página com o passo a passo pra baixar e usar o app"])}
+
+      <!-- 16 · CARD DE PREÇO + CTA 1 -->
+      <div class="offer" id="oferta">
+        <span class="offer__off">${desconto}% OFF</span>
+        <p class="offer__k">Tudo isso de <s>R$ ${CONFIG.precoDe}</s> por apenas</p>
+        <p class="offer__price">R$ ${CONFIG.preco}</p>
+        <p class="offer__once">Pagamento único · sem mensalidade · sem surpresa</p>
+        <ul class="offer__stack" role="list">
+          ${["Aplicativo Ceia Econômica de Natal", "Busca de receitas pelos seus ingredientes", "Receitas de Natal com passo a passo", "Pratos, acompanhamentos e sobremesas", "Guia de como baixar e usar"].map(t => `<li><span>${t}</span><em>Incluso</em></li>`).join("")}
+        </ul>
+        <p class="offer__sum">Você economiza <b>R$ ${economia}</b></p>
+        ${cta("Garantir meu acesso")}
+        <p class="offer__safe">🔒 Compra segura · Garantia de ${CONFIG.garantiaDias} dias</p>
+      </div>
+      ${selo}
+    </div>
+
+    <!-- 17 · GARANTIA -->
+    <div class="sec sec--escuro sec--garantia">
+      <h2 class="tit">Garantia de ${CONFIG.garantiaDias} dias</h2>
+      <div class="pv-selo">${SELO()}</div>
+      <p class="rot">Funciona assim:</p>
+      <p class="txt">Você acessa o Ceia Econômica de Natal agora, usa por ${CONFIG.garantiaDias} dias, coloca os seus ingredientes, encontra as receitas e testa tudo à vontade.</p>
+      <p class="txt">Se nesses ${CONFIG.garantiaDias} dias você achar que o app não valeu cada centavo (por qualquer motivo, sem precisar explicar nada), é só mandar uma mensagem e a gente devolve 100% do seu dinheiro.</p>
+      <p class="txt"><b>Sem pergunta, sem burocracia, sem complicação.</b></p>
+    </div>
+
+    <!-- 18 · FAQ + RESUMO + CTA 2 -->
+    <div class="sec sec--branco">
+      <h2 class="tit">Perguntas frequentes</h2>
+      <div class="faq">
+        ${[
+          ["Como eu recebo o acesso?", "Na hora. Assim que o pagamento é aprovado, você vai para uma página que explica tudo: como baixar o app no seu celular e como usar."],
+          ["Funciona no meu celular?", "O app é feito pra usar no celular. Na página de acesso você encontra o passo a passo pra instalar no seu aparelho."],
+          ["Eu não sei mexer muito com celular. Vou conseguir usar?", "Sim. É muito simples: você coloca os ingredientes que tem em casa, o app busca as receitas e mostra o passo a passo."],
+          ["Não sou boa na cozinha. As receitas são difíceis?", "Cada receita vem com todos os ingredientes e o modo de preparo explicado passo a passo, pra você fazer sem erro no dia 24."],
+          ["E se eu tiver poucos ingredientes em casa?", "O app mostra as receitas que dá pra fazer com o que você colocou. Quanto mais ingredientes você colocar, mais receitas aparecem."],
+          ["Preciso pagar mensalidade?", "Não. Você paga uma vez só e o app é seu."],
+          ["Vou economizar mesmo com isso?", "O app não faz milagre, mas faz uma coisa muito importante: você passa a aproveitar o que já tem em casa antes de ir ao mercado.<br><br>E isso te ajuda a:<br>– Comprar bem menos<br>– Parar de jogar comida fora<br>– Ter o cardápio resolvido<br>– Fazer uma ceia farta gastando pouco"],
+        ].map(([q, r]) => `<details class="pv-faq__item"><summary>${q}</summary><p>${r}</p></details>`).join("")}
+      </div>
+      <p class="fecho">Se você quer parar de comprar a ceia inteira do zero, parar de jogar comida fora e fazer uma ceia farta gastando pouco, o <b>Ceia Econômica de Natal</b> é pra você.</p>
+      <p class="fecho"><b>Clique no botão abaixo e comece a usar agora.</b></p>
+      ${cta("Garantir meu acesso")}
+      ${selo}
+      <footer>Este site não é afiliado ao Facebook ou à Meta.</footer>
+    </div>
   </section>`;
-  document.getElementById("cont").onclick=()=>{ sfx.click(); go(state.i+1); };
 }
 
-function renderLoading(){
-  document.getElementById("progress").classList.remove("show");
-  back.classList.remove("show");
-  const steps=["Analisando suas respostas","Calculando quantidades por pessoa","Montando seu cardápio ideal","Gerando sua lista de compras","Organizando o cronograma de preparo"];
-  main.innerHTML=`<section class="screen loading">
-    <h2>Preparando o seu plano…</h2>
-    <p class="sub">Estamos calculando a melhor ceia para o seu perfil.</p>
-    <div class="ring"><svg viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="65"/><circle class="fg" id="fg" cx="75" cy="75" r="65"/></svg><div class="pct" id="pct">0%</div></div>
-    <ul class="steps">${steps.map(s=>`<li><span class="dot"></span>${s}</li>`).join("")}</ul>
-  </section>`;
-  const li=[...main.querySelectorAll(".steps li")], fg=document.getElementById("fg"), pct=document.getElementById("pct");
-  const DUR=6500, t0=performance.now(); let lastStep=-1;
-  (function frame(now){
-    const p=Math.min(1,(now-t0)/DUR), eased=1-Math.pow(1-p,1.6), v=Math.round(eased*100);
-    pct.textContent=v+"%"; fg.style.strokeDashoffset=408-408*eased;
-    const s=Math.min(steps.length-1,Math.floor(eased*steps.length));
-    if(s!==lastStep){ li.forEach((el,k)=>{el.classList.toggle("done",k<s);el.classList.toggle("on",k===s);}); if(lastStep>=0) sfx.tick(); lastStep=s; }
-    if(p<1) requestAnimationFrame(frame);
-    else { li.forEach(el=>{el.classList.remove("on");el.classList.add("done")}); sfx.done(); setTimeout(renderResult,700); }
-  })(t0);
+/* Selo de garantia (SVG) */
+function SELO() {
+  const d = CONFIG.garantiaDias;
+  return `<svg viewBox="0 0 300 300" role="img" aria-label="Garantia de ${d} dias">
+    <defs><path id="arco" d="M40 150A110 110 0 0 1 260 150"/><radialGradient id="g" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#d42a33"/><stop offset="1" stop-color="#7e0e16"/></radialGradient></defs>
+    <circle cx="150" cy="150" r="148" fill="#3b0f12"/>
+    <circle cx="150" cy="150" r="126" fill="none" stroke="#e8a628" stroke-width="34"/>
+    <circle cx="150" cy="150" r="108" fill="url(#g)" stroke="#3b0f12" stroke-width="4"/>
+    <text font-family="Poppins" font-weight="800" font-size="19" fill="#3b0f12" letter-spacing="3"><textPath href="#arco" startOffset="50%" text-anchor="middle">GARANTIA INCONDICIONAL</textPath></text>
+    <text x="150" y="160" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="86" fill="#fff">${d}</text>
+    <text x="150" y="196" text-anchor="middle" font-family="Poppins" font-weight="800" font-size="26" fill="#ffd56b">DIAS</text>
+    <text x="150" y="222" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="12.5" fill="#fff">SEU DINHEIRO DE VOLTA</text>
+  </svg>`;
 }
 
-function withUTM(url){ const s=location.search; return s? url+(url.includes("?")?"&":"?")+s.slice(1) : url; }
-
-function renderResult(){
-  track("track","Lead",{content_name:"Quiz Ceia Econômica"});
-  const a=state.answers;
-  const pessoas=(a.pessoas||"sua família").toLowerCase();
-  const prato=(a.prato&&a.prato!=="Outro")?a.prato:"À sua escolha", doce=a.sobremesa||"Pavê";
-  main.innerHTML=`<section class="screen">
-    <div class="result-head">
-      <span class="tag">✅ Plano pronto</span>
-      <h2>Sua Ceia Econômica de Natal está pronta!</h2>
-      <p>Com base nas suas respostas, montamos o caminho para uma ceia farta para <b>${pessoas}</b>, sem estourar o orçamento.</p>
-    </div>
-    <div class="profile">
-      <div><small>Convidados</small><b>${a.pessoas||"-"}</b></div>
-      <div><small>Prato principal</small><b>${prato}</b></div>
-      <div><small>Sobremesa</small><b>${doce}</b></div>
-      <div><small>Objetivo</small><b>Economizar sem perder o sabor</b></div>
-    </div>
-    <div class="plan">
-      <h3>O que vem no seu plano</h3>
-      <ul>
-        <li>37 receitas econômicas com passo a passo</li>
-        <li>Cardápios prontos por orçamento</li>
-        <li>Lista de compras e quantidades por pessoa</li>
-        <li>Substituições econômicas que mantêm o sabor</li>
-        <li>Cronograma de preparo para não ter correria no dia 24</li>
-      </ul>
-    </div>
-    <div class="mockrow">
-      ${["pagina-1.32b79ce1","pagina-2.ef8f390c","pagina-3.0813c4c0","pagina-4.a6476f87","pagina-5.7c819a75"].map(f=>`<img src="${IMG+f}.webp" alt="Página do guia" loading="lazy">`).join("")}
-    </div>
-    <div class="timer">⏰ Promoção termina em <b id="cd">--</b></div>
-
-    <div class="offer best" id="planos">
-      <div class="ribbon">⭐ MAIS ESCOLHIDO</div>
-      <h4>Plano Completo</h4>
-      <p class="desc">A ceia inteira resolvida: do prato principal à sobremesa</p>
-      <ul class="base"><li class="row"><span>E-book <b>Ceia Econômica de Natal</b> (37 receitas)</span><s>R$ 19,90</s></li></ul>
-      ${BONUS.map((b,k)=>`<div class="bonus">
-        <img src="${IMG+b.capa}" alt="${b.titulo}" loading="lazy">
-        <div><span class="btag">Bônus especial de Natal</span><h5>${b.titulo}</h5><p>${b.desc}</p><s>Valor: R$ ${b.valor}</s>
-        <button class="see" data-bonus="${k}">Ver o que tem dentro ›</button></div></div>`).join("")}
-      <ul class="extras">
-        <li class="row"><span>🎁 Calendário de Datas Doces</span><s>R$ 27,00</s></li>
-        <li class="row"><span>🎁 Bolo Retangular</span><s>R$ 67,00</s></li>
-        <li class="row"><span>🎁 30 Receitas de Doces para Festas</span><s>R$ 15,00</s></li>
-        <li class="row"><span>🎁 3 cardápios prontos, checklist de compras e guia de porções</span></li>
-      </ul>
-      <div class="price"><s>De R$ 211,70</s><span class="now">R$ 47,90</span><small>pagamento único</small></div>
-      <a class="btn pulse" href="${withUTM(CHECKOUT_COMPLETO)}" data-snd data-plan="Completo" data-value="47.90">Quero o Plano Completo →</a>
-    </div>
-
-    <div class="offer">
-      <h4>Plano Essencial</h4>
-      <p class="desc">Só o guia principal</p>
-      <ul class="base"><li>Guia Ceia Econômica de Natal (37 receitas)</li></ul>
-      <div class="price"><span class="now" style="font-size:34px">R$ 19,90</span><small>pagamento único</small></div>
-      <a class="btn red" href="${withUTM(CHECKOUT_ESSENCIAL)}" data-snd data-plan="Essencial" data-value="19.90">Quero o Plano Essencial</a>
-    </div>
-
-    <div class="guarantee">
-      <img src="${IMG}selo-garantia-15-dias.a250f264.webp" alt="Garantia de 15 dias">
-      <p><b>Garantia de 15 dias</b>Se não gostar, devolvemos 100% do seu dinheiro, sem perguntas.</p>
-    </div>
-    <p class="fine">Acesso imediato pelo celular, computador ou para imprimir.</p>
-  </section>`;
-  main.querySelectorAll("[data-snd]").forEach(a=>a.addEventListener("click",()=>{ sfx.click(); track("track","InitiateCheckout",{content_name:"Plano "+a.dataset.plan,value:+a.dataset.value,currency:"BRL"}); }));
-  main.querySelectorAll("[data-bonus]").forEach(b=>b.onclick=()=>{sfx.click();openModal(BONUS[+b.dataset.bonus]);});
-  startCountdown();
+function mountSales(el) {
+  document.body.style.background = "var(--bg)";
+  track("ViewContent", { content_name: "pagina_de_vendas" });
+  /* entrada suave dos blocos ao rolar */
+  const nodes = [...el.querySelectorAll(".card,.lista li,.tit,.apoio,.foto,.offer,.aviso,.pv-faq__item,.ad__par,.telas__fones,.passos li,.fecho")];
+  nodes.forEach(n => n.classList.add("sq"));
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
+    nodes.forEach(n => io.observe(n));
+  } else nodes.forEach(n => n.classList.add("on"));
+  /* carrossel */
+  const car = el.querySelector("[data-carrossel]");
+  if (car) {
+    const tr = car.querySelector(".pv-carrossel__trilho"), dots = [...el.querySelectorAll(".pv-carrossel__pontos i")], total = dots.length; let i = 0;
+    const go = k => { i = (k + total) % total; tr.style.transform = `translateX(-${i * 100}%)`; dots.forEach((d, j) => d.classList.toggle("on", j === i)); };
+    car.querySelectorAll("[data-dir]").forEach(b => b.addEventListener("click", () => { sfx.click(); go(i + +b.dataset.dir); }));
+    let sx = 0; car.addEventListener("touchstart", e => sx = e.touches[0].clientX, { passive: true });
+    car.addEventListener("touchend", e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); });
+  }
+  /* checkout */
+  el.querySelectorAll("[data-checkout]").forEach(a => a.addEventListener("click", () => {
+    sfx.click();
+    track("InitiateCheckout", { value: Number(CONFIG.preco.replace(",", ".")), currency: "BRL" });
+  }));
+  el.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => d.open && sfx.click()));
 }
 
-function startCountdown(){
-  const el=document.getElementById("cd");
-  const tick=()=>{ let ms=PROMO_FIM-new Date(); if(ms<0)ms=0;
-    const d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60,s=Math.floor(ms/1e3)%60, z=n=>String(n).padStart(2,"0");
-    el.textContent=(d?d+"d ":"")+z(h)+":"+z(m)+":"+z(s); };
-  tick(); setInterval(tick,1000);
+/* =========================================================
+   MOTOR DO QUIZ
+   ========================================================= */
+const state = { step: 0, answers: {}, history: [] };
+const appEl = document.getElementById("app");
+let cleanup = null;
+
+function render() {
+  if (cleanup) { try { cleanup(); } catch (e) {} cleanup = null; }
+  const s = STEPS[state.step];
+  appEl.innerHTML = s.render();
+  window.scrollTo(0, 0);
+  const c = s.mount && s.mount(appEl);
+  if (typeof c === "function") cleanup = c;
+  appEl.querySelectorAll("[data-next]").forEach(b => b.addEventListener("click", () => {
+    if (s.onNext) s.onNext(); else sfx.click();
+    next();
+  }));
+  appEl.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", () => { sfx.click(); back(); }));
 }
+function next() { if (state.step < STEPS.length - 1) { state.history.push(state.step); state.step++; render(); } }
+function back() { if (state.history.length) { state.step = state.history.pop(); render(); } }
 
-/* ============ NEVE ============ */
-(function(){ const s=document.getElementById("snow");
-  for(let k=0;k<16;k++){ const i=document.createElement("i"); i.textContent=k%3?"❄":"✦";
-    i.style.left=Math.random()*100+"%"; i.style.fontSize=(8+Math.random()*10)+"px";
-    i.style.animationDuration=(9+Math.random()*10)+"s"; i.style.animationDelay=(-Math.random()*15)+"s"; i.style.opacity=.5; s.appendChild(i);} })();
-
-/* pré-carrega imagens do resultado */
-["ce-pernil.3db0c7f7.webp","ce-frango-assado.6ae5452e.webp"].forEach(f=>{const im=new Image();im.src=IMG+f;});
-["noticia-oglobo","bacalhau","chester","pave","rabanada","torta","panetone"].forEach(f=>{const im=new Image();im.src="img/"+f+".webp";});
-
-go(-1,false);
+/* Teste: abra a página com ?etapa=oferta (ou diagnostico, como-usar...) para ir direto a uma tela */
+(function () {
+  const etapa = new URLSearchParams(location.search).get("etapa");
+  if (etapa) {
+    const i = STEPS.findIndex(s => s.id === etapa);
+    if (i >= 0) {
+      Object.assign(state.answers, { cardapio: "Procuro receitas na internet", lista: "Faço lista, mas esqueço o que já tenho", gastou: "Sim, todo ano estoura", despensa: "Compro de novo sem saber que já tinha", tempo: "Dias pensando nisso" });
+      state.step = i;
+    }
+  }
+})();
+render();
 </script>
 </body>
 </html>
