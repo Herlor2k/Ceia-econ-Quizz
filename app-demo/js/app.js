@@ -684,7 +684,6 @@
         if (location.hash !== '#/despensa') history.replaceState(null, '', '#/despensa');
         rota(); window.scrollTo(0, 0);
       },
-      liberar(pid) { liberados.add(pid); guardar('liberados', [...liberados]); atualizarVisiveis(); pintarFaixa(); },
       encherDespensa(ks) { ks.forEach(k => ING[k] && despensa.add(k)); salvarDespensa(); },
       mostrarResultados() { dm.modo = 'resultados'; abaAtual = null; if (location.hash !== '#/despensa') history.replaceState(null, '', '#/despensa'); rota(); },
     };

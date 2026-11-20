@@ -5,7 +5,7 @@
      demo=1      liga o modo demonstração (obrigatório)
      som=1       liga os sons e a vibração (desligados por padrão)
      moldura=0   não desenha a moldura de celular (use quando a página já desenha o celular por fora)
-     passo=N     começa direto na etapa N (1 a 6), para testes
+     passo=N     começa direto na etapa N (1 a 3), para testes
      auto=0      espera a mensagem "ceia-demo:continuar" da página antes de começar
 
    Mensagens aceitas via postMessage (da página que contém o iframe):
@@ -19,7 +19,7 @@
 
   const Q = new URLSearchParams(location.search);
   const MOLDURA = Q.get('moldura') !== '0';
-  const PASSO_INICIAL = Math.min(6, Math.max(1, parseInt(Q.get('passo'), 10) || 1));
+  const PASSO_INICIAL = Math.min(3, Math.max(1, parseInt(Q.get('passo'), 10) || 1));
   let pausadoFora = Q.get('auto') === '0';
   const VEL = 0.84;   // ritmo geral (menor = mais rápido); a digitação continua entre 90 e 140 ms por letra
 
@@ -28,6 +28,7 @@
   css.textContent = `
     body.demo{-webkit-user-select:none;user-select:none}
     body.demo #btnSom{visibility:hidden}
+    body.demo #faixaExtras{display:none!important}
     .demo-toque{position:fixed;z-index:2147483000;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
       background:rgba(255,255,255,.55);border:2.5px solid rgba(255,255,255,.95);box-shadow:0 2px 12px rgba(0,0,0,.35);
       pointer-events:none;transform:scale(.6);opacity:0;transition:transform .14s ease,opacity .14s ease}
@@ -175,8 +176,6 @@
     el.classList.remove('demo-foco');
   }
 
-  function ir(hash) { if (location.hash !== hash) location.hash = hash; }
-
   /* ---------------------------------------------------------------- o roteiro */
   const ING_DEMO = ['frango-inteiro', 'batata', 'cebola', 'alho', 'leite-condensado', 'creme-de-leite', 'ovos', 'arroz'];
 
@@ -239,52 +238,11 @@
     await tocar('.folha.on [data-fechar].fechar', v, 500);
   }
 
-  async function etapa4(v) {   // Abas
-    await tocar('.abas a[data-aba="sobremesas"]', v, 700);
-    await rolarPor(520, v, 1400);
-    await espera(500, v);
-    await tocar('.abas a[data-aba="entradas"]', v, 600);
-    await tocar('[data-sub="bebida"]', v, 600);
-    await rolarPor(480, v, 1300);
-    await espera(500, v);
-  }
-
-  async function etapa5(v) {   // Extras com código (falso) e pacote francês
-    await rolar(window, 0, v, 500);
-    await tocar('#faixaExtras', v, 700);
-    await tocar('[data-tenho="franca"]', v, 300);
-    await digitar('#cod-franca', '2512250', v);
-    await espera(250, v);
-    await tocar('form[data-codigo="franca"] button[type="submit"]', v, 1500);
-    await tocar('[data-prod="franca"] a.btn-prod', v, 800);
-    await rolarPor(700, v, 1600);
-    await espera(400, v);
-    await rolarPor(600, v, 1400);
-    await espera(400, v);
-  }
-
-  async function etapa6(v) {   // Monte sua Ceia
-    API.liberar('montar');
-    ir('#/montar');
-    await achar('#btnMontar', v);
-    await espera(900, v);
-    await tocar('[data-qtd="principal"][data-d="1"]', v, 600);
-    await tocar('[data-qtd="sobremesa"][data-d="1"]', v, 700);
-    await tocar('#btnMontar', v, 1300);
-    await rolarPor(520, v, 1300);
-    await espera(700, v);
-    const btn = await achar('#btnMontar', v);
-    await rolarAte(btn, v, 0.4, 800);
-    await tocar('#btnMontar', v, 1400);
-  }
-
-  const ETAPAS = [etapa1, etapa2, etapa3, etapa4, etapa5, etapa6];
+  const ETAPAS = [etapa1, etapa2, etapa3];
 
   /* prepara o estado para começar no meio do roteiro (&passo=N) */
   function preparar(n) {
-    if (n >= 2 && n <= 3) { API.encherDespensa(ING_DEMO); API.mostrarResultados(); }
-    if (n === 4) API.encherDespensa(ING_DEMO);
-    if (n === 5) { API.encherDespensa(ING_DEMO); ir('#/sobremesas'); }
+    if (n >= 2) { API.encherDespensa(ING_DEMO); API.mostrarResultados(); }
   }
 
   async function rodar() {
