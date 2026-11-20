@@ -164,6 +164,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rec__t{font-size:12px;font-weight:800;margin-bottom:5px}
 .phone--sm .rec__t{font-size:7.5px;margin-bottom:3px}
 
+.cel{width:calc(var(--w) + 18px);margin:0 auto;padding:9px;border-radius:calc(var(--w) * .16);background:#141414;position:relative;
+  box-shadow:0 24px 40px -18px rgba(60,15,15,.55),inset 0 0 0 2px #3a3a3a}
+.cel__tela{position:relative;width:var(--w);aspect-ratio:390/844;border-radius:calc(var(--w) * .12);overflow:hidden;background:#fffaf6}
+.cel__tela img{display:block;width:100%;height:100%;object-fit:cover}
+.cel__tela iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(var(--esc));transform-origin:0 0;pointer-events:none}
+.cel__ao-vivo{position:absolute;top:-11px;right:-6px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.how .cel{flex:none;padding:5px;border-radius:18px}
+.how .cel__tela{border-radius:13px}
 /* ---------- Como usar ---------- */
 .how{display:flex;flex-direction:column;gap:12px;margin-top:16px}
 .how__step{display:flex;gap:12px;align-items:center;background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--shadow);border-top:5px solid var(--c)}
@@ -338,7 +346,8 @@ mark.mt{background:linear-gradient(transparent 55%,#ffd0a0 55%);color:inherit;pa
 .pv-carrossel{position:relative;overflow:hidden;border-radius:18px}
 .pv-carrossel__trilho{display:flex;transition:transform .4s ease}
 .pv-carrossel__slide{min-width:100%;padding:0 2px}
-.pv-carrossel__slide .slot{aspect-ratio:4/5}
+.pv-carrossel__slide{padding:14px 2px 4px}
+.pv-carrossel__tag{max-width:86%;text-align:center;line-height:1.3}
 .pv-carrossel__tag{display:table;margin:8px auto 0;background:#fff;border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:700;box-shadow:var(--shadow)}
 .pv-carrossel__seta{position:absolute;top:42%;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:var(--shadow);font-size:22px;font-weight:800;z-index:4}
 .pv-carrossel__seta--ant{left:6px}.pv-carrossel__seta--prox{right:6px}
@@ -413,6 +422,10 @@ const CONFIG = {
   preco: "29,90",
   precoDe: "197",
   checkoutUrl: "https://pay.wiapy.com/X79lQo-CNcrL",
+  /* Endereço do app em modo demonstração (animação do app se usando sozinho).
+     Hoje aponta para a cópia só-demo que fica neste mesmo site (pasta app-demo/).
+     Quando o app estiver publicado, troque pelo endereço dele, ex.: "https://seu-app.vercel.app/index.html" */
+  appDemoUrl: "app-demo/index.html",
   garantiaDias: 7,
 };
 
@@ -577,6 +590,43 @@ function mountDemo(root, passo) {
 }
 
 /* =========================================================
+   APP: DEMONSTRAÇÃO AO VIVO E PRINTS EM FORMATO DE CELULAR
+   ========================================================= */
+/* largura = largura da tela do celular desenhado (px). A demo roda em 390×844 e é reduzida por CSS. */
+function appDemo(largura, extra = "") {
+  const esc = (largura / 390).toFixed(4);
+  const url = `${CONFIG.appDemoUrl}${CONFIG.appDemoUrl.includes("?") ? "&" : "?"}demo=1&moldura=0&auto=0${extra}`;
+  return `<div class="cel cel--demo" style="--w:${largura}px;--esc:${esc}">
+    <div class="cel__tela"><iframe data-src="${url}" title="Demonstração do aplicativo Ceia Econômica de Natal" loading="lazy" tabindex="-1" aria-hidden="false"></iframe></div>
+    <span class="cel__ao-vivo">● Ao vivo</span>
+  </div>`;
+}
+function appPrint(arquivo, largura, alt) {
+  return `<div class="cel" style="--w:${largura}px"><div class="cel__tela"><img src="img/${arquivo}" alt="${alt}" loading="lazy" decoding="async"></div></div>`;
+}
+/* só carrega e só roda a demo enquanto ela está visível na tela */
+const demoObs = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
+  const f = e.target, w = () => f.contentWindow;
+  if (e.isIntersecting) {
+    if (!f.src) {
+      f.src = f.dataset.src;
+      f.addEventListener("load", () => [300, 900, 2000].forEach(t => setTimeout(() => f.dataset.vis === "1" && w() && w().postMessage("ceia-demo:continuar", "*"), t)));
+    }
+    f.dataset.vis = "1";
+    if (w()) w().postMessage("ceia-demo:continuar", "*");
+  } else {
+    f.dataset.vis = "0";
+    if (w()) w().postMessage("ceia-demo:pausar", "*");
+  }
+}), { threshold: 0.25 }) : null;
+function ligarDemos(root) {
+  root.querySelectorAll(".cel--demo iframe").forEach(f => {
+    if (demoObs) demoObs.observe(f); else f.src = f.dataset.src.replace("&auto=0", "");
+  });
+  return () => root.querySelectorAll(".cel--demo iframe").forEach(f => demoObs && demoObs.unobserve(f));
+}
+
+/* =========================================================
    PERGUNTAS
    ========================================================= */
 let qCount = 0;
@@ -660,7 +710,7 @@ const STEPS = [
       <section class="q">
         ${topBar(n)}
         <h2 class="q__title reveal">Sua ceia pode começar pelo que você <span class="hl">já tem em casa</span>.</h2>
-        <figure class="shot-wrap reveal">${phone(0)}</figure>
+        <figure class="shot-wrap reveal">${appDemo(236)}</figure>
         <div class="checks reveal">
           <p class="checks__title">Assim, tudo fica mais fácil:</p>
           <ul role="list">
@@ -672,7 +722,7 @@ const STEPS = [
         <p class="punch reveal">Você aproveita o que tem em casa<br><span class="punch__hl">e gasta muito menos!</span></p>
         <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Continuar</button></div>
       </section>`,
-    mount: el => mountDemo(el.querySelector(".shot-wrap"), 0),
+    mount: el => ligarDemos(el),
   }))(),
 
   /* 7 · TEMPO */
@@ -795,12 +845,12 @@ const STEPS = [
             <article class="how__step ${c} reveal" style="animation-delay:${.1 + i * .1}s">
               <span class="how__n">${i + 1}</span>
               <div class="how__body"><small class="how__eyebrow">Passo ${i + 1} de 3</small><h3>${t}</h3><p>${d}</p></div>
-              <div data-demo="${i + 1}">${phone(i + 1, true)}</div>
+              ${appPrint(["app-ingredientes.webp", "app-buscando.webp", "app-receitas.webp"][i], 96, t)}
             </article>`).join("")}
         </div>
         <div class="reveal"><button class="btn btn--pulse" type="button" data-next>Quero o aplicativo</button></div>
       </section>`,
-    mount: el => { const s = [...el.querySelectorAll("[data-demo]")].map(d => mountDemo(d, +d.dataset.demo)); return () => s.forEach(f => f()); },
+
   }))(),
 
   /* → PÁGINA DE VENDAS */
@@ -881,7 +931,7 @@ function salesPage() {
     <div class="sec sec--escuro">
       <div class="telas__fones">
         <div class="telas__item">${slot("app-ingredientes.webp", "9 / 19.5", "Print do app: tela onde ela coloca os ingredientes que tem em casa")}</div>
-        <div class="telas__item">${slot("app-buscando.webp", "9 / 19.5", "Print do app: tela buscando as receitas")}</div>
+        <div class="telas__item">${slot("app-buscando.webp", "9 / 19.5", "Print do app: receitas encontradas")}</div>
         <div class="telas__item"><b class="telas__pronto">Pronto! ✓</b>${slot("app-receitas.webp", "9 / 19.5", "Print do app: lista de receitas encontradas ou uma receita com o passo a passo")}</div>
         <span class="telas__seta telas__seta--1">Passo 1 ➜</span>
         <span class="telas__seta telas__seta--2">Passo 2 ➜</span>
@@ -953,6 +1003,8 @@ function salesPage() {
           <li><b>3</b><span>Fazer a receita no dia 24</span></li>
         </ol>
         <p class="card__ok">✅ Simples assim</p>
+        <p class="apoio card__centro" style="margin:4px 0 14px">Veja o app funcionando 👇</p>
+        <div style="margin-bottom:22px">${appDemo(250)}</div>
         ${foto("conheca.webp", "Duas mulheres (mãe e filha) olhando juntas as receitas no celular, na cozinha", "Feito pra quem prepara a ceia")}
       </div>
     </div>
@@ -976,16 +1028,16 @@ function salesPage() {
 
     <!-- 13 · VEJA COMO USAM (carrossel) -->
     <div class="sec sec--pessego">
-      <h2 class="tit">Veja como as famílias <mark class="mt">usam o app</mark>…</h2>
+      <h2 class="tit">Veja por dentro do <mark class="mt">aplicativo</mark>…</h2>
       <div class="pv-carrossel" data-carrossel>
         <div class="pv-carrossel__trilho">
-          ${[1, 2, 3].map(i => `<figure class="pv-carrossel__slide">${slot(`exemplo-${i}.webp`, "4 / 5", `Exemplo de uso ${i}: print de conversa ou da tela do app mostrando as receitas encontradas`)}<span class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> Exemplo de uso</span></figure>`).join("")}
+          ${[["exemplo-1.webp", "Passo a passo: toque para marcar o que já fez"], ["exemplo-2.webp", "Monte sua Ceia: um cardápio sorteado na hora"], ["exemplo-3.webp", "Sobremesas de Natal com foto e tempo de preparo"]].map(([f, t]) => `<figure class="pv-carrossel__slide">${appPrint(f, 220, t)}<figcaption class="pv-carrossel__tag"><img src="img/ui/lampada.webp" alt="" width="24" height="24"> ${t}</figcaption></figure>`).join("")}
         </div>
         <button class="pv-carrossel__seta pv-carrossel__seta--ant" type="button" data-dir="-1" aria-label="Anterior">‹</button>
         <button class="pv-carrossel__seta pv-carrossel__seta--prox" type="button" data-dir="1" aria-label="Próximo">›</button>
       </div>
       <div class="pv-carrossel__pontos">${[0, 1, 2].map(i => `<i${i ? "" : ' class="on"'}></i>`).join("")}</div>
-      <p class="pv-carrossel__nota">Exemplos ilustrativos de como o app é usado no dia a dia.</p>
+      <p class="pv-carrossel__nota">Telas reais do aplicativo.</p>
 
       <!-- 14 · PAGAMENTO ÚNICO -->
       <div class="aviso">
@@ -1064,6 +1116,7 @@ function SELO() {
 }
 
 function mountSales(el) {
+  const pararDemos = ligarDemos(el);
   document.body.style.background = "var(--bg)";
   track("ViewContent", { content_name: "pagina_de_vendas" });
   /* entrada suave dos blocos ao rolar */
@@ -1088,6 +1141,7 @@ function mountSales(el) {
     track("InitiateCheckout", { value: Number(CONFIG.preco.replace(",", ".")), currency: "BRL" });
   }));
   el.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => d.open && sfx.click()));
+  return pararDemos;
 }
 
 /* =========================================================
