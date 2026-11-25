@@ -483,7 +483,11 @@ function track(name, params, custom) {
   try { if (window.fbq) fbq(custom ? "trackCustom" : "track", name, params || {}); } catch (e) {}
   try { if (window.clarity) clarity("event", name); } catch (e) {}
 }
-function withUTM(url) { const s = location.search; return s ? url + (url.includes("?") ? "&" : "?") + s.slice(1) : url; }
+function withUTM(url) {
+  /* repassa os parâmetros da campanha (utm_*, fbclid…) para o checkout; o atalho de teste "etapa" fica de fora */
+  const q = new URLSearchParams(location.search); q.delete("etapa");
+  const s = q.toString(); return s ? url + (url.includes("?") ? "&" : "?") + s : url;
+}
 
 /* =========================================================
    TEXTOS DO DIAGNÓSTICO (usam as respostas)
